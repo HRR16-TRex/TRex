@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Zach Hutsell
+  - __Scrum Master__: Brendan Pelletier
+  - __Development Team Members__: Andrew Vye, Josh Summerhays
 
 ## Table of Contents
 
@@ -24,11 +24,10 @@
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- MongoDB
+- Express
+- Angular
+- Node
 
 ## Development
 
@@ -44,7 +43,7 @@ bower install
 
 ### Roadmap
 
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
+View the project roadmap [here](https://github.com/HRR16-TRex/TRex/issues)
 
 
 ## Contributing
