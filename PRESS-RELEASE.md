@@ -1,4 +1,4 @@
-# Project Name #
+# HRR16 TRex Greenfield #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -16,29 +16,27 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+## The Great Race Timer ##
 
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+## An interactive timer to help pass the time ##
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > Wish you could jazz up that timer? Well now you can with The Great Race Timer. Watch the time pass as the excitement grows. Pick a racer and see who ends up winning!
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Timers are boring and dull, no one wants to watch a clock tick down. 
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > The Great Race Timer racers make the countdown fun and interactive. You'll never know where the time went!
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "I could watch this for the rest of my life."
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Just go to our website, input the time you want, click start, and enjoy!
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > "I was able to get all my students to work quietly as The Great Race Timer made our daily writing assignment exciting."
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Don't let boring timers plague your life, come visit our website and watch the minutes pass by with pure joy!
