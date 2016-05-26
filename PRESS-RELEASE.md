@@ -1,4 +1,4 @@
-# HRR16 TRex Greenfield #
+# HRR16 TRex Race Timer #
 
 <!-- 
 > This material was originally posted [here](http://www.quora.com/What-is-Amazons-approach-to-product-development-and-product-management). It is reproduced here for posterities sake.
@@ -16,18 +16,18 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## The Great Race Timer ##
+## The TRex Race Timer ##
 
 ## An interactive timer to help pass the time ##
 
 ## Summary ##
-  > Wish you could jazz up that timer? Well now you can with The Great Race Timer. Watch the time pass as the excitement grows. Pick a racer and see who ends up winning!
+  > Wish you could jazz up that timer? Well now you can with The TRex Race Timer. Watch the time pass as the excitement grows. Pick a racer and see who ends up winning!
 
 ## Problem ##
   > Timers are boring and dull, no one wants to watch a clock tick down. 
 
 ## Solution ##
-  > The Great Race Timer racers make the countdown fun and interactive. You'll never know where the time went!
+  > The TRex Race Timer makes the countdown fun and interactive. You'll never know where the time went!
 
 ## Quote from You ##
   > "I could watch this for the rest of my life."
@@ -36,7 +36,7 @@ Once the project moves into development, the press release can be used as a touc
   > Just go to our website, input the time you want, click start, and enjoy!
 
 ## Customer Quote ##
-  > "I was able to get all my students to work quietly as The Great Race Timer made our daily writing assignment exciting."
+  > "I was able to get all my students to work quietly as The TRex Race Timer made our daily writing assignment exciting."
 
 ## Closing and Call to Action ##
   > Don't let boring timers plague your life, come visit our website and watch the minutes pass by with pure joy!
