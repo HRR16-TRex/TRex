@@ -1,0 +1,12 @@
+{
+  "name": "trex",
+  "version": "1.0.0",
+  "description": "HRR16-TRex Greenfield",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "bower": "^1.7.9"
+  }
+}
