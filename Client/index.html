@@ -1,17 +1,38 @@
 <!DOCTYPE html>
-<html ng-app='shortly'>
-  <head>
-    <meta charset="utf-8" />
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="styles/style.css" />
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>Angular FlipClock</title>
+    <link rel="stylesheet" href="lib/FlipClock/compiled/flipclock.css">
   </head>
-  <body>
-    <h1>Title here</h1>
-    <div ng-view></div>
+  <body ng-app="app" ng-controller="AppController">
+    <div>
+      <flip-clock 
+      name="fClock" 
+      ng-model="fClock" 
+      autostart="false"
+      countdown="true"
+      callback="cb"           
+      >
+      </flip-clock>
 
+      <input ng-model='timeInput'
+        name='timeInput'
+        type='number'              
+        />
+
+      <button 
+      ng-click="setTime(timeInput);start();callback(console.log('hi'))"      
+      >START</button>
+      
+      <button ng-click="stop()">STOP</button>
+      <button ng-click="setTime(timeInput)">RESET</button>
+
+    </div>
+    <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/angular/angular.js"></script>
-    <script src="lib/angular-route/angular-route.js"></script>
-
+    <script src="lib/FlipClock/compiled/flipclock.js"></script>
+    <script src="lib/angular-flipclock/angular-flipclock.js"></script>
     <script src="app/app.js"></script>
   </body>
 </html>
