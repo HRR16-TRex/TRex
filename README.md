@@ -1,6 +1,6 @@
-# Project Name
+# TRex race timer
 
-> Pithy project description
+> Wish you could jazz up that timer? Well now you can with The TRex Race Timer. Watch the time pass as the excitement grows. Pick a racer and see who ends up winning!
 
 ## Team
 
