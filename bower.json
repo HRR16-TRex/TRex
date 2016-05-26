@@ -16,6 +16,10 @@
   "dependencies": {
     "angular": "^1.5.5",
     "angular-route": "^1.5.5",
-    "angular-mocks": "^1.5.5"
+    "angular-mocks": "^1.5.5",
+    "angular-flipclock": "^0.4.0"
+  },
+  "resolutions": {
+    "angular": "^1.5.5"
   }
 }
