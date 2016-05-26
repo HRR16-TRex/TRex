@@ -1,0 +1,21 @@
+{
+  "name": "trex timer",
+  "authors": [
+    "HRR16-TRex"
+  ],
+  "description": "HRR16-TRex Greenfield",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.5",
+    "angular-route": "^1.5.5",
+    "angular-mocks": "^1.5.5"
+  }
+}
