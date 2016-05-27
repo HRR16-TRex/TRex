@@ -10,5 +10,5 @@
     "bower": "^1.7.9",
     "express": "^4.13.4"
   },
-  "main": "server.js",
+  "main": "server.js"
 }
