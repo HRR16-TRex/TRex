@@ -2,38 +2,28 @@
 <html>
   <head lang="en">
     <meta charset="UTF-8">
-    <title>The Great Race Timer</title>
-    <link rel="stylesheet" href="lib/FlipClock/compiled/flipclock.css">
+    <title>TRex Timer</title>
+    <link rel="stylesheet" href="styles/style.css">
   </head>
-  <body ng-app="app">
+  <body ng-app="app" ng-controller="AppController">
     <div>
-      <flip-clock 
-      name="fClock" 
-      ng-model="fClock" 
-      autostart="false"
-      countdown="true"
-      callback="cb"           
-      >
-      </flip-clock>
-
-      <input ng-model='timeInput'
-        name='timeInput'
-        type='number'              
-        />
-
-      <button 
-      ng-click="setTime(timeInput);start();callback(console.log('hi'))"      
-      >START</button>
-      
-      <button ng-click="stop()">STOP</button>
-      <button ng-click="setTime(timeInput)">RESET</button>
+      <input type="text" placeholder="Minutes" name="timerCountMinutes" ng-model="timerCountMinutes">
+      <input type="text" placeholder="Seconds" name="timerCountSeconds" ng-model="timerCountSeconds">
+      <button ng-click="setTimer(timerCountSeconds,timerCountMinutes)">Set Time</button>
+      <h2>
+        <timer interval="1000" countdown="countdownTime" autostart="false" finish-callback="countdownComplete()">{{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}</timer>
+      </h2>
+      <button ng-click="startTimer()">Start Timer</button>
+      <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button>
 
     </div>
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/angular/angular.js"></script>
-    <script src="lib/FlipClock/compiled/flipclock.js"></script>
-    <script src="lib/angular-flipclock/angular-flipclock.js"></script>
     <script src="lib/angular-route/angular-route.js"></script>
+    <script src="lib/moment/min/moment.min.js"></script>
+    <script src="lib/moment/min/locales.min.js"></script>
+    <script src="lib/humanize-duration/humanize-duration.js"></script>
+    <script src="lib/angular-timer/dist/angular-timer.min.js"></script>
     <script src="app/app.js"></script>
     <script src="auth/auth.js"></script>
     <script src="services/services.js"></script>

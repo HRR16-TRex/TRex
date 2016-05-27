@@ -11,13 +11,4 @@
     "express": "^4.13.4"
   },
   "main": "server.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/joshSummerhays/TRex.git"
-  },
-  "author": "",
-  "bugs": {
-    "url": "https://github.com/joshSummerhays/TRex/issues"
-  },
-  "homepage": "https://github.com/joshSummerhays/TRex#readme"
 }
