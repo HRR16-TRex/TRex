@@ -1,34 +1,63 @@
 angular.module("app", [
-  "angular-flipclock",
+  "timer",
   "app.auth",
   "app.services",
   "ngRoute"
   ])
-  // .controller("AppController", function($scope){
-  //   var trigger = function(x){
-  //     console.log(x);
-  //   }
-  //   trigger($scope); 
-  // })
 
-    // , $routeProvider, $httpProvider
+.controller("AppController", function($scope, $timeout){
+  $scope.countdownTime = 1;
+  console.log($scope.countdownTime);
+  $scope.timerRunning = true;
+    
+  $scope.startTimer = function (){
+    $scope.$broadcast('timer-start');
+    $scope.timerRunning = true;
+  };
+            
+  $scope.stopTimer = function (){
+    $scope.$broadcast('timer-stop');
+    $scope.timerRunning = false;
+  };
+            
+  $scope.$on('timer-stopped', function (event, data){
+    console.log('Timer Stopped - data = ', data);
+  });
+  
+  var turnToSeconds = function (seconds, minutes) {
+    seconds = seconds || 0;
+    minutes = minutes || 0;
+    return Number(seconds)+Number((minutes*60));
+  };
+  
+  $scope.setTimer = function (seconds, minutes) {
+    $scope.countdownTime = turnToSeconds(seconds, minutes);
+    $scope.$broadcast('timer-set-countdown-seconds', $scope.countdownTime);
+  };
+  
+  $scope.countdownComplete = function () {
+    console.log('Countdown complete');
+  };
 
-  .config(function($routeProvider){
-    $routeProvider
-        .when('/signin', {
-          templateUrl: '../auth/signin.html',
-          controller: 'AuthController'
-        })
-        .when('/signup', {
-          templateUrl: '../auth/signup.html',
-          controller: 'AuthController'
-        })
-        .otherwise({
-          redirectTo: '/'
-        });   
+})
 
-        // $httpProvider.interceptors.push('AttachTokens'); 
-  })
+
+.config(function($routeProvider){
+  $routeProvider
+      .when('/signin', {
+        templateUrl: '../auth/signin.html',
+        controller: 'AuthController'
+      })
+      .when('/signup', {
+        templateUrl: '../auth/signup.html',
+        controller: 'AuthController'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });   
+
+      // $httpProvider.interceptors.push('AttachTokens'); 
+});
 
 //   .factory('AttachTokens', function ($window) {
 //   // this is an $httpInterceptor
@@ -60,3 +89,4 @@ angular.module("app", [
 //       $location.path('/signin');
 //     }
 //   });
+  
