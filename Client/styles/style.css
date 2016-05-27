@@ -14,6 +14,7 @@ body {
   top: 180px;
   width: 500px;
   height: 277px;
+  border: #000 5px solid;
   background-image: url(../assets/filler.gif);
 }
 
@@ -21,3 +22,9 @@ body {
   from {background-position: 0 0;}
   to {background-position: -900px 0;}
 }
+
+/*.one {
+}
+
+.two {
+}*/

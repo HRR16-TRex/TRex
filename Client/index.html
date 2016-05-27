@@ -15,26 +15,9 @@
       </h2>
       <button ng-click="startTimer()">Start Timer</button>
       <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button>
-      <div class="trex"></div>
+      <div class="trex one"></div>
+      <div class="trex two"></div>
     </div>
-
-    <!--move this to app controller?-->
-    <script>
-      var move = function() {
-        setInterval(function() {
-          var rndDistance = Math.floor(Math.random() * 50);
-          var rndTime = Math.random() * 1000;
-          animateMovement(rndDistance, rndTime);
-        }, 1000);
-      }
-
-      function animateMovement(distance, timeframe) { 
-        $('.container').css({'animation':'backgroundScroll 15s linear infinite'});
-        $('.trex').animate({'left':'+=' + distance}, {
-          duration: timeframe
-        });
-      }
-    </script>
 
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/angular/angular.js"></script>

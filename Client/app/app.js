@@ -13,7 +13,12 @@ angular.module("app", [
   $scope.startTimer = function (){
     $scope.$broadcast('timer-start');
     $scope.timerRunning = true;
-    move();
+    $('.trex').each(function() {
+      var racer = $(this);
+      intervalIds.push(setInterval(function() { move(racer) }, 1000));
+    });
+
+    $('.container').css({'animation':'backgroundScroll 15s linear infinite'});
   };
             
   $scope.stopTimer = function (){
@@ -37,11 +42,18 @@ angular.module("app", [
   };
   
   $scope.countdownComplete = function () {
+    var winner = null;
+    for (var i=0; i < intervalIds.length; i++) {
+      var racer = $($('.trex')[i]);
+      if (!winner || racer.css('left') > winner.css('left')) {
+        winner = racer;
+      }
+      clearInterval(intervalIds[i]);
+    }
+    winner.css('border', '5px red solid');
     console.log('Countdown complete');
   };
-
 })
-
 
 .config(function($routeProvider){
   $routeProvider
@@ -59,6 +71,20 @@ angular.module("app", [
 
       // $httpProvider.interceptors.push('AttachTokens'); 
 });
+
+var intervalIds = [];
+
+var move = function(racer) {
+  var rndDistance = Math.floor(Math.random() * 50);
+  var rndTime = Math.random() * 1000;
+  animateMovement(racer, rndDistance, rndTime);
+}
+
+function animateMovement(racer, distance, timeframe) {
+  racer.animate({'left':'+=' + distance}, {
+    duration: timeframe
+  });
+}
 
 //   .factory('AttachTokens', function ($window) {
 //   // this is an $httpInterceptor
@@ -90,4 +116,7 @@ angular.module("app", [
 //       $location.path('/signin');
 //     }
 //   });
-  
+
+
+
+
