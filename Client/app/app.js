@@ -13,6 +13,7 @@ angular.module("app", [
   $scope.startTimer = function (){
     $scope.$broadcast('timer-start');
     $scope.timerRunning = true;
+    move();
   };
             
   $scope.stopTimer = function (){
