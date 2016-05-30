@@ -7,7 +7,6 @@ angular.module("app", [
 
 .controller("AppController", function($scope, $timeout){
   $scope.countdownTime = 1;
-  console.log($scope.countdownTime);
   $scope.timerRunning = true;
     
   $scope.startTimer = function (){
