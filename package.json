@@ -14,5 +14,14 @@
     "morgan": "^1.7.0",
     "socket.io": "^1.4.6"
   },
-  "main": "server.js"
+  "main": "server.js",
+  "devDependencies": {
+    "browser-sync": "^2.12.10",
+    "karma": "^0.13.22",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^1.0.1",
+    "karma-nyan-reporter": "^0.2.4",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-sinon": "^1.0.5"
+  }
 }
