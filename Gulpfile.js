@@ -24,7 +24,7 @@ gulp.task('start', ['serve'], function () {
     // address for server,
     injectChanges: true,
     files: paths.scripts.concat(paths.html, paths.styles),
-    proxy: 'localhost:8000'
+    proxy: 'localhost:3030'
   });
 });
 
