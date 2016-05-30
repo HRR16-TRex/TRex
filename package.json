@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "HRR16-TRex Greenfield",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/server.js"
+    "test": "gulp karma",
+    "start": "gulp"
   },
   "license": "MIT",
   "dependencies": {
