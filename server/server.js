@@ -25,6 +25,6 @@ io.on('connection', function(socket){
 //   res.send('hello world');
 // })
 
-app.listen(port, function(){
+http.listen(port, function(){
   console.log('listening on port ' + port);
 });
