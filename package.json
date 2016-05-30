@@ -17,6 +17,9 @@
   "main": "server.js",
   "devDependencies": {
     "browser-sync": "^2.12.10",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.0.7",
+    "gulp-shell": "^0.5.2",
     "karma": "^0.13.22",
     "karma-chai": "^0.1.0",
     "karma-mocha": "^1.0.1",
