@@ -1,6 +1,6 @@
 angular.module('app.services', [])
 
-.factory('Auth', function ($http, $location, $window) {
+.factory('Auth', function ($http, $location) {
   var signin = function (user) {
     return $http({
       method: 'POST',
@@ -23,20 +23,13 @@ angular.module('app.services', [])
     });
   };
 
-  // var isAuth = function () {
-  //   return !!$window.localStorage.getItem('com.timer');
-  // };
-
   var signout = function () {
-    // $window.localStorage.removeItem('com.timer');
     $location.path('/signin');
   };
-
 
   return {
     signin: signin,
     signup: signup,
-    // isAuth: isAuth,
     signout: signout
   };
 });

@@ -6,6 +6,15 @@
     <link rel="stylesheet" href="styles/style.css">
   </head>
   <body ng-app="app" ng-controller="AppController">
+    
+    <div class="dropdown">
+      <button class="dropbtn">Menu</button>
+      <div class="dropdown-content">
+        <a href="#/signup">Sign-Up</a>
+        <a href="#/signin">Sign-In</a>
+      </div>
+    </div>
+
     <div class="container">
       <input type="text" placeholder="Minutes" name="timerCountMinutes" ng-model="timerCountMinutes">
       <input type="text" placeholder="Seconds" name="timerCountSeconds" ng-model="timerCountSeconds">
@@ -29,11 +38,14 @@
     <script src="app/app.js"></script>
     <script src="auth/auth.js"></script>
     <script src="services/services.js"></script>
-
+<!--
     <script src="/socket.io/socket.io.js"></script>
     <script>
-      var socket = io();
+      var socket = io('http://localhost:3030');
+      socket.on('alert', function(data){
+        console.log(data);
+      });
     </script>
-
+-->
   </body>
 </html>
