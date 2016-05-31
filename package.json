@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "HRR16-TRex Greenfield",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server/server.js"
+    "test": "gulp karma",
+    "start": "gulp"
   },
   "license": "MIT",
   "dependencies": {
@@ -12,7 +12,20 @@
     "bower": "^1.7.9",
     "express": "^4.13.4",
     "morgan": "^1.7.0",
+    "phantomjs-prebuilt": "^2.1.7",
     "socket.io": "^1.4.6"
   },
-  "main": "server.js"
+  "main": "server.js",
+  "devDependencies": {
+    "browser-sync": "^2.12.10",
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.0.7",
+    "gulp-shell": "^0.5.2",
+    "karma": "^0.13.22",
+    "karma-chai": "^0.1.0",
+    "karma-mocha": "^1.0.1",
+    "karma-nyan-reporter": "^0.2.4",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-sinon": "^1.0.5"
+  }
 }
