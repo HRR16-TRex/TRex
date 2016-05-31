@@ -4,7 +4,7 @@
   "description": "HRR16-TRex Greenfield",
   "scripts": {
     "test": "gulp karma",
-    "start": "gulp",
+    "start": "node server/server.js",
     "postinstall": "bower install"
   },
   "license": "MIT",
