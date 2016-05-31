@@ -23,6 +23,7 @@ angular.module("app", [
   $scope.stopTimer = function (){
     $scope.$broadcast('timer-stop');
     $scope.timerRunning = false;
+    stopRacers();
   };
             
   $scope.$on('timer-stopped', function (event, data){
@@ -40,6 +41,15 @@ angular.module("app", [
     $scope.$broadcast('timer-set-countdown-seconds', $scope.countdownTime);
   };
   
+  $scope.resetRace = function(){
+    $('.trex').each(function(){
+      var racer = $(this);
+      resetRacer(racer);
+    });
+    stopRacers();
+    $scope.stopTimer();
+  };
+
   $scope.countdownComplete = function () {
     var winner = null;
     for (var i=0; i < intervalIds.length; i++) {
@@ -72,11 +82,24 @@ angular.module("app", [
 
 var intervalIds = [];
 
+var resetRacer = function(racer){
+  racer.css({
+    'left': '10px',
+    'border': 'none'
+  });
+};
+
+var stopRacers = function(){
+    for (var i=0; i < intervalIds.length; i++) {
+    clearInterval(intervalIds[i]);
+  }
+};
+
 var move = function(racer) {
   var rndDistance = Math.floor(Math.random() * 50);
   var rndTime = Math.random() * 1000;
   animateMovement(racer, rndDistance, rndTime);
-}
+};
 
 function animateMovement(racer, distance, timeframe) {
   racer.animate({'left':'+=' + distance}, {
