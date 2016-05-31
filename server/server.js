@@ -32,10 +32,10 @@ router.route('/signin')
     // interact here with the database given the user and roomname
     
     // redirect to /req.body.roomname with a status code of 201
-    res.redirect(201, '/' + req.body.roomname);
+    res.redirect(201, '/raceView/' + req.body.roomname);
   });
 
-router.route('/*')
+router.route('/raceView/*')
 
   .get(function(req, res) {
     // Should query the database with the given roomname (may need to check req.url)
