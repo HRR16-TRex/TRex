@@ -1,25 +1,19 @@
 angular.module('app.services', [])
 
-.factory('Auth', function ($http, $location) {
-  var signin = function (user) {
-    return $http({
-      method: 'POST',
-      url: '/api/users/signin',
-      data: user
-    })
-    .then(function (resp) {
-      return resp.data;
-    });
-  };
+.factory('servicesFactory', function ($http, $location) {
 
-  var signup = function (user) {
+  var signin = function (user, roomname) {
+    var data = {
+      user: user,
+      roomname: roomname
+    }
     return $http({
       method: 'POST',
-      url: '/api/users/signup',
-      data: user
+      url: '/signin',
+      data: data
     })
-    .then(function (resp) {
-      return resp.data;
+    .then(function (res) {
+      return res.data;
     });
   };
 
@@ -29,7 +23,6 @@ angular.module('app.services', [])
 
   return {
     signin: signin,
-    signup: signup,
     signout: signout
   };
 });

@@ -1,0 +1,12 @@
+<div id="raceView">
+  <input type="text" placeholder="Minutes" name="timerCountMinutes" ng-model="timerCountMinutes">
+  <input type="text" placeholder="Seconds" name="timerCountSeconds" ng-model="timerCountSeconds">
+  <button ng-click="setTimer(timerCountSeconds,timerCountMinutes)">Set Time</button>
+  <h2>
+    <timer interval="1000" countdown="countdownTime" autostart="false" finish-callback="countdownComplete()">{{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}</timer>
+  </h2>
+  <button ng-click="startTimer()">Start Timer</button>
+  <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button>
+  <div class="trex one"></div>
+  <div class="trex two"></div>
+</div>
