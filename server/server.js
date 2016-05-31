@@ -30,12 +30,20 @@ router.route('/signin')
   .post(function(req, res) {
     // Should have a req.body.user and a req.body.roomname
     // interact here with the database given the user and roomname
+    
+    // redirect to /req.body.roomname with a status code of 201
+    res.redirect(201, '/' + req.body.roomname);
   });
 
 router.route('/*')
 
-  .get(function(req,res) {
-    // Should query the database with the given roomname
+  .get(function(req, res) {
+    // Should query the database with the given roomname (may need to check req.url)
+    var roomname = req.url;
+  })
+  
+  .post(function(req, res) {
+    // Will need to query the database for betting and things like that (stretch goals)
   });
     
 
