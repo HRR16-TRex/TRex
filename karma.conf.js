@@ -17,7 +17,7 @@ module.exports = function (config) {
       // angular source
       'Client/lib/angular/angular.js',
       'Client/lib/angular-route/angular-route.js',
-      // 'client/lib/angular-mocks/angular-mocks.js',
+      'Client/lib/angular-mocks/angular-mocks.js',
       
       // Additional sources
       'Client/lib/moment/min/moment.min.js',
@@ -35,6 +35,9 @@ module.exports = function (config) {
       // our spec files - in order of the README
       'specs/Client/test.js'
     ],
+    
+    // web server port
+    port: 9876,
 
     // test results reporter to use
     reporters: ['nyan'],

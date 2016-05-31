@@ -6,6 +6,8 @@ angular.module("app", [
   ])
 
 .controller("AppController", function($scope, $timeout){
+  $scope.test = {};
+  
   $scope.countdownTime = 1;
   $scope.timerRunning = true;
     
