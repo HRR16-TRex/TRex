@@ -1,5 +1,25 @@
-<div id='signin'>
-  <h1>signin</h1>
+<div id='signInView'>
+  <h1>Signin</h1>
+
+<!--   <div>join an existing race</div><br>
+
+  <div>
+    Race:
+    <select></select>
+  </div>
+
+  <form action="#" method="post">
+    <input type="text" name="username" placeholder="username"/>
+    <input type="submit" name="submit" class="submit" ng-click=""/>
+  </form><br> -->
+
+  <div>create/join a new race</div><br>
+
+  <form action="#" method="post">
+    <input type="text" name="roomname" placeholder="race name"/>
+    <input type="text" name="username" placeholder="username"/>
+    <input type="submit" name="submit" ng-click="signIn()"/>
+  </form>
   <!-- <form name="signinForm" ng-submit='signin()'>
     <input type='text'ng-model='user.username'>
     <input type="password" ng-model='user.password'>
