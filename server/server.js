@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-var http = require('http').Server(app);
+var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
 app.use(morgan('dev'));
@@ -14,16 +14,18 @@ app.use(express.static(__dirname + '/../Client'));
 
 var port = process.env.PORT || 3030;
 
+app.post('/api/users/signin', function(){
+
+});
+app.post('/api/users/signup', function(){
+  
+});
+
 
 io.on('connection', function(socket){
   console.log('a user connected with io');
 });
 
-
-
-// app.get('/', function(req, res){
-//   res.send('hello world');
-// })
 
 http.listen(port, function(){
   console.log('listening on port ' + port);
