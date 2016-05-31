@@ -14,13 +14,30 @@ app.use(express.static(__dirname + '/../Client'));
 
 var port = process.env.PORT || 3030;
 
-app.post('/api/users/signin', function(){
+var router = express.Router();
 
-});
-app.post('/api/users/signup', function(){
-  
+// All of our routes will be prefixed with /api
+app.use('/api', router);
+
+// Basic router to run first
+router.use(function(req, res, next) {
+    console.log('A request has been sent.');
+    next(); // sends us to the next route
 });
 
+router.route('/signin')
+      
+  .post(function(req, res) {
+    // Should have a req.body.user and a req.body.roomname
+    // interact here with the database given the user and roomname
+  });
+
+router.route('/*')
+
+  .get(function(req,res) {
+    // Should query the database with the given roomname
+  });
+    
 
 io.on('connection', function(socket){
   console.log('a user connected with io');
