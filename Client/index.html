@@ -18,7 +18,7 @@
     <div class="container">
       <input type="text" placeholder="Minutes" name="timerCountMinutes" ng-model="timerCountMinutes">
       <input type="text" placeholder="Seconds" name="timerCountSeconds" ng-model="timerCountSeconds">
-      <button ng-click="setTimer(timerCountSeconds,timerCountMinutes)">Set Time</button>
+      <button ng-click="resetRace(); setTimer(timerCountSeconds,timerCountMinutes)">Set Time</button>
       <h2>
         <timer interval="1000" countdown="countdownTime" autostart="false" finish-callback="countdownComplete()">{{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}</timer>
       </h2>
