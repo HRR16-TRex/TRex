@@ -16,8 +16,8 @@
   <div>create/join a new race</div><br>
 
   <form action="#" method="post">
-    <input type="text" name="roomname" placeholder="race name"/>
-    <input type="text" name="username" placeholder="username"/>
+    <!-- <input type="text" name="roomname" placeholder="race name"/> -->
+    <input type="text" name="username" placeholder="username" ng-model='user.username'/>
     <input type="submit" name="submit" ng-click="signIn()"/>
   </form>
   <!-- <form name="signinForm" ng-submit='signin()'>
