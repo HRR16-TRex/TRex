@@ -17,16 +17,15 @@ module.exports = {
 				if (!user) {
 					cb(new Error('User not found'));
 				} else {
-					return (foundUser) {
-						if (foundUser) {
+					return 
+					if (foundUser) {
 							var token = jwt.encode(user, 'secret');
 							res.json({token: token});
 						} else {
 							return cb(new Error('no user'));
 						}
 					}
-				}
-			})
+				})
 			.fail(function(error){
 				cb(error);
 			});
@@ -47,20 +46,19 @@ module.exports = {
 				if (!user) {
 					cb(new Error('User not found'));
 				} else {
-					return (foundUser) {
+					return
 						if (foundUser) {
 							var token = jwt.encode(user, 'secret');
 							res.json({token: token});
 						} else {
 							return cb(new Error('no user'));
 						}
-					}
 				}
 			})
 			.fail(function(error){
 				cb(error);
 			});
-	},
+	}
 	//Keep uncommented until usaged first
 	// allusers: function(req, res, cb) {
 	// 	findAll()
