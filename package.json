@@ -12,7 +12,7 @@
     "body-parser": "^1.15.1",
     "bower": "^1.7.9",
     "express": "^4.13.4",
-    "jsonwebtoken": "^7.0.0",
+    "jwt-simple": "^0.5.0",
     "mongoose": "^4.4.19",
     "morgan": "^1.7.0",
     "phantomjs-prebuilt": "^2.1.7",

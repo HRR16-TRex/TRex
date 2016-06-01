@@ -1,7 +1,7 @@
-Var Room = require('./userModel.js');
-	Q = require('q');
+var Room = require('./roomModel.js');
+  Q = require('q');
 
-	var findRoom = Q.nbind(User.findOne, Room);
+	var findRoom = Q.nbind(Room.findOne, Room);
 	var createRoom = Q.nbind(Room.create, Room);
 	var findAllRooms = Q.nbind(Room.findAll, Room);
 

@@ -7,9 +7,9 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-var db = require('/config/config.js');
-var userController = require('/users/userController.js');
-var roomController = requre('/rooms/roomController.js');
+var db = require('./config/config.js');
+var userController = require('./users/userController.js');
+var roomController = requre('./rooms/roomController.js');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -30,12 +30,12 @@ router.use(function(req, res, next) {
 });
 
 router.route('/signin')
-      
+
   .post(function(req, res, cb) {
-    userController.findUser(req, res, cb);
+    userController.signin(req, res, cb);
     // Should have a req.body.user and a req.body.roomname
     // interact here with the database given the user and roomname
-    
+
     // redirect to /req.body.roomname with a status code of 201
     res.redirect(201, '/raceView/' + req.body.roomname);
   });
@@ -43,7 +43,7 @@ router.route('/signin')
 router.route('/signup')
 
   .post(function(req,res, cb) {
-    userController.signUpUser(req, res, cb);
+    userController.signupUser(req, res, cb);
     res.redirect(201, '/raceView/' + req.body.roomname);
   })
 
