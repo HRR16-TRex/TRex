@@ -7,6 +7,10 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
+var db = require('/config/config.js');
+var userController = require('/users/userController.js');
+var roomController = requre('/rooms/roomController.js');
+
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
@@ -27,7 +31,8 @@ router.use(function(req, res, next) {
 
 router.route('/signin')
       
-  .post(function(req, res) {
+  .post(function(req, res, cb) {
+    userController.findUser(req, res, cb);
     // Should have a req.body.user and a req.body.roomname
     // interact here with the database given the user and roomname
     
@@ -35,14 +40,21 @@ router.route('/signin')
     res.redirect(201, '/raceView/' + req.body.roomname);
   });
 
+router.route('/signup')
+
+  .post(function(req,res, cb) {
+    userController.signUpUser(req, res, cb);
+    res.redirect(201, '/raceView/' + req.body.roomname);
+  })
+
 router.route('/raceView/*')
 
-  .get(function(req, res) {
+  .get(function(req, res, cb) {
     // Should query the database with the given roomname (may need to check req.url)
     var roomname = req.url;
   })
   
-  .post(function(req, res) {
+  .post(function(req, res, cb) {
     // Will need to query the database for betting and things like that (stretch goals)
   });
     
