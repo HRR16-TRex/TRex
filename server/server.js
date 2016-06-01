@@ -47,7 +47,25 @@ router.route('/raceView/*')
   });
     
 
-io.on('connection', function(socket){
+io.on('connection', function(client){
+  client.emit('test', 'hello from server');
+
+  // when set timer is clicked, the client sends information here to be executed
+  client.on('generateRaceData', function(time, racers) {
+    io.sockets.emit('setClock');
+    generateRacerMoves(time, racers);
+  });
+
+  // some reason needed to pass a param in for it to work, status is a boolean
+  client.on('startRace', function(status) {
+    console.log('race started from client');
+    if (status) {
+      io.sockets.emit('startCountdown');
+      // io.sockets.emit will emit this information to all clients
+      io.sockets.emit('animateRacers', racerMoves);
+    }
+  });
+
   console.log('a user connected with io');
 });
 
@@ -55,3 +73,33 @@ io.on('connection', function(socket){
 http.listen(port, function(){
   console.log('listening on port ' + port);
 });
+
+var racerMoves = {};
+
+var generateRacerMoves = function(time, racers) {
+  var moves = {};
+  time = time * 1000;
+
+  for (var i = 0; i < racers.length; i++) {
+    var racerTime = 0, move;
+    moves[racers[i]] = [];
+
+    for (var j = 0; j < 95; j++) {
+      moves[racers[i]].push({time:time / 100, distance: 1});
+    }
+  }
+
+  var winner = racers[Math.floor(Math.random() * racers.length)];
+
+  for (racer in moves) {
+    if (racer !== winner) {
+      var randomMoves = Math.floor(Math.random() * 20), rnd;
+      for (var i = 0; i < randomMoves; i++) {
+        rnd = Math.floor(Math.random() * moves[racer].length);
+        moves[racer][rnd].distance = 0;
+      }
+    }
+  }
+
+  racerMoves = moves;
+}
