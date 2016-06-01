@@ -1,15 +1,17 @@
 angular.module('app.services', [])
 
 .factory('servicesFactory', function ($http, $location) {
-
-  var signin = function (user, roomname) {
+    
+  var factorySignIn = function(username, racename){
+    console.log("signIn on factory working");
     var data = {
-      user: user,
-      roomname: roomname
-    }
+      username: username,
+      racename: racename
+    };
+    console.log(data);
     return $http({
       method: 'POST',
-      url: '/signin',
+      url: '/api/signin',
       data: data
     })
     .then(function (res) {
@@ -22,7 +24,7 @@ angular.module('app.services', [])
   };
 
   return {
-    signin: signin,
+    factorySignIn: factorySignIn,
     signout: signout
   };
 });

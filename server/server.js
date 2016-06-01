@@ -18,8 +18,15 @@ app.use(express.static(__dirname + '/../Client'));
 
 var port = process.env.PORT || 3030;
 
-var router = express.Router();
+// app.post('/api/signin', function(req, res){
+//   console.log("***********")
+//   // res.redirect(201, '/raceView');
+//   // res.send("test");
+//   res.redirect(201, '/raceView/' + req.body.roomname);
+// });
 
+// /' + req.body.roomname
+var router = express.Router();
 // All of our routes will be prefixed with /api
 app.use('/api', router);
 
@@ -35,9 +42,9 @@ router.route('/signin')
     userController.signin(req, res, cb);
     // Should have a req.body.user and a req.body.roomname
     // interact here with the database given the user and roomname
-
     // redirect to /req.body.roomname with a status code of 201
-    res.redirect(201, '/raceView/' + req.body.roomname);
+    res.send('HELLO WORLD');
+    // res.redirect(201, '/raceView/' + req.body.roomname);
   });
 
 router.route('/signup')

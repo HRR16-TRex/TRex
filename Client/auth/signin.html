@@ -14,11 +14,10 @@
   </form><br> -->
 
   <div>create/join a new race</div><br>
-
-  <form action="#" method="post">
-    <!-- <input type="text" name="roomname" placeholder="race name"/> -->
-    <input type="text" name="username" placeholder="username" ng-model='user.username'/>
-    <input type="submit" name="submit" ng-click="signIn()"/>
+  <form ng-submit="ctrlSignIn()">
+    <input type="text" name="racename" ng-model="racename" placeholder="race name"/>
+    <input type="text" name="username" ng-model="username" placeholder="username"/>
+    <input type="submit" name="submit"/>
   </form>
   <!-- <form name="signinForm" ng-submit='signin()'>
     <input type='text'ng-model='user.username'>

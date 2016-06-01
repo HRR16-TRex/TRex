@@ -1,12 +1,19 @@
 angular.module('app.auth', [])
 
 .controller('AuthController', function ($scope, $location, servicesFactory) {
-  $scope.user = {};
+  $scope.username = '';
 
-  $scope.roomname = '';
+  $scope.racename = '';
 
-  $scope.signIn = function () {
-    servicesFactory.factorySignIn();
+  $scope.ctrlSignIn = function () {
+    console.log("signIn on controller working");
+    servicesFactory.factorySignIn($scope.username, $scope.racename)
+    .then(function (token) {
+      $location.path('/raceView/' + $scope.racename);
+    })
+    .catch(function (error) {
+      console.error(error);
+    });
   };
 
   // $scope.signup = function () {
