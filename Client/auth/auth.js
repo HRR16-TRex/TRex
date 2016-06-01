@@ -8,7 +8,8 @@ angular.module('app.auth', [])
   $scope.ctrlSignIn = function () {
     console.log("signIn on controller working");
     servicesFactory.factorySignIn($scope.username, $scope.racename)
-    .then(function (token) {
+    .then(function () {
+      console.log('ctrlSignIn .then');
       $location.path('/raceView/' + $scope.racename);
     })
     .catch(function (error) {
@@ -16,13 +17,4 @@ angular.module('app.auth', [])
     });
   };
 
-  // $scope.signup = function () {
-  //   Auth.signup($scope.user)
-  //     .then(function () {
-  //       $location.path('/');
-  //     })
-  //     .catch(function (error) {
-  //       console.error(error);
-  //     });
-  // };
 });

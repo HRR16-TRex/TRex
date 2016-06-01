@@ -15,6 +15,7 @@ angular.module('app.services', [])
       data: data
     })
     .then(function (res) {
+      console.log(res);
       return res.data;
     });
   };
