@@ -1,17 +1,17 @@
 angular.module("app.race", [])
   
   .controller("raceController", function($scope, $timeout){
-
       $scope.countdownTime = 1;
       $scope.timerRunning = true;
+      $scope.racerMoves = {};
         
       $scope.startTimer = function (){
         $scope.$broadcast('timer-start');
         $scope.timerRunning = true;
-        $('.trex').each(function() {
-          var racer = $(this);
-          intervalIds.push(setInterval(function() { move(racer) }, 1000));
-        });
+
+        for (var racer in $scope.racerMoves) {
+          animateMovement(racer, $scope.racerMoves[racer]);
+        }
 
         $('.container').css({'animation':'backgroundScroll 15s linear infinite'});
       };
@@ -34,34 +34,55 @@ angular.module("app.race", [])
       $scope.setTimer = function (seconds, minutes) {
         $scope.countdownTime = turnToSeconds(seconds, minutes);
         $scope.$broadcast('timer-set-countdown-seconds', $scope.countdownTime);
+        $scope.racerMoves = calculateMoves($scope.countdownTime);
       };
       
       $scope.countdownComplete = function () {
         var winner = null;
-        for (var i=0; i < intervalIds.length; i++) {
-          var racer = $($('.trex')[i]);
-          if (!winner || racer.css('left') > winner.css('left')) {
-            winner = racer;
+
+        $('.trex').each(function() {
+          if (!winner || $(this).css('left') > winner.css('left')) {
+            winner = $(this);
           }
-          clearInterval(intervalIds[i]);
-        }
+        });
+
         winner.css('border', '5px red solid');
         console.log('Countdown complete');
       };
   })
 
- 
-
-var intervalIds = [];
-
-var move = function(racer) {
-  var rndDistance = Math.floor(Math.random() * 50);
-  var rndTime = Math.random() * 1000;
-  animateMovement(racer, rndDistance, rndTime);
+function animateMovement(racer, moves) {
+  moves.forEach(function(move) {
+    $('.' + racer).animate({'left':'+=' + move.distance + '%'}, {
+      duration: move.time
+    });
+  });
 }
 
-function animateMovement(racer, distance, timeframe) {
-  racer.animate({'left':'+=' + distance}, {
-    duration: timeframe
+var calculateMoves = function(time) {
+  var moves = {};
+  time = time * 1000;
+
+  $('.trex').each(function() {
+    var racerTime = 0, move;
+    moves[this.classList[1]] = [];
+
+    for (var i = 0; i < 95; i++) {
+      moves[this.classList[1]].push({time:time / 100, distance: 1});
+    }
   });
+
+  var winner = $('.trex')[Math.floor(Math.random() * $('.trex').length)].classList[1];
+
+  for (racer in moves) {
+    if (racer !== winner) {
+      var randomMoves = new Array(Math.floor(Math.random() * 20));
+      for (var i = 0; i < randomMoves.length; i++) {
+        var rnd = Math.floor(Math.random() * moves[racer].length);
+        moves[racer][rnd].distance = 0;
+      }
+    }
+  }
+
+  return moves;
 }
