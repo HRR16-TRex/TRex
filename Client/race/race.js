@@ -61,6 +61,8 @@ angular.module("app.race", [])
       $scope.chooseRacer = function(racer) {
         console.log(racer);
       };
+      
+      $scope.userList = [{name: 'zhuts', racer: 'red'}, {name:'bdpellet', racer: 'blue'}, {name:'summertime', racer: 'green'}];
   });
 
 

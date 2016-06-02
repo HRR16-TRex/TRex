@@ -14,7 +14,12 @@
   </select>
   <button ng-click="chooseRacer(selectedRacer)">Choose Racer</button>
   <div class="userList">
-    
+    <h4>Red</h4>
+    <p ng-repeat="user in userList | filter: 'red'">{{user.name}}</p>
+    <h4>Blue</h4>
+    <p ng-repeat="user in userList | filter: 'blue'">{{user.name}}</p>
+    <h4>Green</h4>
+    <p ng-repeat="user in userList | filter: 'green'">{{user.name}}</p>
   </div>
 </div>
 
