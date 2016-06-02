@@ -13,7 +13,7 @@ angular.module("app", [
         controller: 'AuthController'
       })
       //:id to be the roomname input by user
-      .when('/raceView/:id', {
+      .when('/raceView/:id/:id', {
         templateUrl: '../race/race.html',
         controller: 'raceController'
       })

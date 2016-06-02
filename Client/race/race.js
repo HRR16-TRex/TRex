@@ -3,6 +3,8 @@ angular.module("app.race", [])
   .controller("raceController", function($scope, $timeout){
       $scope.countdownTime = 1;
       $scope.timerRunning = true;
+      // console.log('this is the ', AuthController);
+      
         
       $scope.startTimer = function (){
         $scope.$broadcast('timer-start');
@@ -62,6 +64,8 @@ angular.module("app.race", [])
         console.log(racer);
       };
       
+      // {racename: {users: [], racerData: []}}
+      // users could be a string or an object for later on
       $scope.userList = [{name: 'zhuts', racer: 'red'}, {name:'bdpellet', racer: 'blue'}, {name:'summertime', racer: 'green'}];
   });
 

@@ -10,7 +10,8 @@ angular.module('app.auth', [])
     servicesFactory.factorySignIn($scope.username, $scope.racename)
     .then(function () {
       console.log('ctrlSignIn .then');
-      $location.path('/raceView/' + $scope.racename);
+      // add something here
+      $location.path('/raceView/' + $scope.racename + '/' + $scope.username);
     })
     .catch(function (error) {
       console.error(error);
