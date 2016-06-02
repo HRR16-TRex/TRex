@@ -33,7 +33,7 @@ angular.module("app.race", [])
         var racers = [];
         $('.trex').each(function() {
           racers.push(this.classList[1]);
-        })
+        });
         
         // passes the timer and an array of all the racers and their unique class to the server
         socket.emit('generateRaceData', $scope.countdownTime, racers);
@@ -51,7 +51,17 @@ angular.module("app.race", [])
         winner.css('border', '5px red solid');
         console.log('Countdown complete');
       };
-  })
+      
+      $scope.racerChoices=['red', 'blue', 'green'];
+      
+      $scope.sendChatMessage= function(message) {
+        console.log(message);
+      };
+      
+      $scope.chooseRacer = function(racer) {
+        console.log(racer);
+      };
+  });
 
 
 // maybe a better way we can make this part of the controller
@@ -73,7 +83,7 @@ socket.on('setClock', function(time) {
 
 socket.on('startCountdown', function() {
   console.log('countdown started');
-})
+});
 
 socket.on('animateRacers', function(racerMoves) {
   if (!isAnimating) {
