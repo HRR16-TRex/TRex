@@ -8,7 +8,7 @@ angular.module("app.race", [])
         $scope.$broadcast('timer-start');
         $scope.timerRunning = true;
         socket.emit('startRace', true);
-        $('.container').css({'animation':'backgroundScroll 15s linear infinite'});
+        $('#raceView').css({'animation':'backgroundScroll 15s linear infinite'});
       };
                 
       $scope.stopTimer = function (){
