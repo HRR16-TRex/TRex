@@ -20,6 +20,5 @@ angular.module("app", [
       .otherwise({
         redirectTo: '/signin'
       }); 
-});  
-
+});
 

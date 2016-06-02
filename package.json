@@ -4,17 +4,19 @@
   "description": "HRR16-TRex Greenfield",
   "scripts": {
     "test": "gulp karma",
-    "start": "nodemon server/server.js",
-    "postinstall": "bower install",
-    "deploy": "node server/server.js"
+    "start": "node server/server.js",
+    "postinstall": "bower install"
   },
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.1",
     "bower": "^1.7.9",
     "express": "^4.13.4",
+    "jwt-simple": "^0.5.0",
+    "mongoose": "^4.4.19",
     "morgan": "^1.7.0",
     "phantomjs-prebuilt": "^2.1.7",
+    "q": "^1.4.1",
     "socket.io": "^1.4.6"
   },
   "main": "server.js",
