@@ -28,22 +28,18 @@ router.use(function(req, res, next) {
     next(); // sends us to the next route
 });
 
-// router.route('/signin')
 
-//   .post(function(req, res, cb) {
-//     userController.signin(req, res, cb);
-//     // Should have a req.body.user and a req.body.roomname
-//     // interact here with the database given the user and roomname
-//     // redirect to /req.body.roomname with a status code of 201
-//   });
+    // Should have a req.body.user and a req.body.roomname
+    // interact here with the database given the user and roomname
+    // redirect to /req.body.roomname with a status code of 201
 
 
 router.route('/signin')
 
   .post(function(req,res, cb) {
-    userController.signupUser(req, res, cb);
+
+    userController.signin(req, res, cb);
     res.status(201).send('success');
-    // res.redirect(201, '/raceView/' + req.body.roomname);
   })
 
 router.route('/raceView/*')
