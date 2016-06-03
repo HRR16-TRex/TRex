@@ -18,11 +18,11 @@
   <h4 ng-show="racerChosen">Racer chosen: {{selectedRacer}}</h4>
   <div class="userList">
     <h4>Red</h4>
-    <p ng-repeat="user in userList | filter: 'red'">{{user.name}}</p>
+    <p ng-repeat="user in userList | filter: 'red'">{{user.user}}</p>
     <h4>Blue</h4>
-    <p ng-repeat="user in userList | filter: 'blue'">{{user.name}}</p>
+    <p ng-repeat="user in userList | filter: 'blue'">{{user.user}}</p>
     <h4>Green</h4>
-    <p ng-repeat="user in userList | filter: 'green'">{{user.name}}</p>
+    <p ng-repeat="user in userList | filter: 'green'">{{user.user}}</p>
   </div>
 </div>
 
@@ -36,6 +36,7 @@
 
 <div class="chatWindow">
   <div class="chatRoom">
+    <p ng-repeat="message in messageList">{{message.user}}:  {{message.message}}</p>
   </div>
   <div class="chatSubmit">
     <form ng-submit="sendChatMessage(chatMessage)">

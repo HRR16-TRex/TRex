@@ -54,33 +54,44 @@ angular.module("app.race", ['ngRoute'])
       };
       
       
-      // NEW STUFF BELOW HERE ****
-      
       // when a player joins, we can send all the players (emit) in the global variable
       // for the room back to the client
       // so you'll get an array of users with the key {username: racerChosen}
       
-      var username = $routeParams.userId;
-      var roomname = $routeParams.roomId;
- 
+      // How to access the user and room from the url
+      // var username = $routeParams.userId;
+      // var roomname = $routeParams.roomId;
+      
+      // Provides the options for the different racers in the drop down
       $scope.racerChoices=['red', 'blue', 'green'];
       
       $scope.sendChatMessage= function(message) {
-        // TODO message 
-        // the format of what is expecting
-        // {roomname:}
-        console.log(message);
+        var userMessage = {
+          user: $routeParams.userId,
+          message: message
+        };
+        
+        $scope.messageList.push(userMessage);
+        // TODO actually send this message to socket.io
+        console.log(userMessage);
       };
       
       $scope.chooseRacer = function(racer) {
-        // TODO 
-        console.log(racer);
+        // TODO actually send the racer and the user to socket io
+        var user= {
+          user: $routeParams.userId,
+          racerChoice: racer
+        };
+        
+        $scope.userList.push(user);
+        
+        // This hides the form and displays the users choice
         $scope.racerChosen = true;
       };
       
-      // {racename: {users: [], racerData: []}}
-      // users could be a string or an object for later on
-      $scope.userList = [{name: 'zhuts', racer: 'red'}, {name: 'andrew', racer: 'blue'}, {name:'bdpellet', racer: 'blue'}, {name:'summertime', racer: 'green'}];
+      $scope.userList = [{user: 'zhuts', racerChoice: 'red'}, {user:'bdpellet', racerChoice: 'blue'}, {user:'summertime', racerChoice: 'green'}];
+      
+      $scope.messageList = [{user: 'zhuts', message: 'my racer is the best!'}, {user: 'bdpellet', message: 'go blue go!'}];
   });
 
 
