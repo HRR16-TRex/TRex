@@ -19,8 +19,8 @@ var port = process.env.PORT || 3030;
 
 var gameData = {};
 
+<<<<<<< b6a6c83481e8d273f7c769cae1c7919222f17df2
 io.on('connection', function(client){
-  console.log("24 server.js", client);
   client.emit('test', 'hello from the other sideeeee');
 
   // *********
@@ -56,10 +56,6 @@ io.on('connection', function(client){
       }
     });
   });
-
-  // userController.updateUserStats(username, didUserWin, callback)
-  // Utilize this function for the socket event of updating who won and lost
-
 
   // *********
   // Find and add the time and racer moves
@@ -103,8 +99,6 @@ http.listen(port, function(){
 });
 
 // TODO: improve this logic and make the movement more interesting
-
-var racerMoves = {};
 
 var generateRacerMoves = function(time, racers) {
   var moves = {};
