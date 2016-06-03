@@ -12,8 +12,10 @@ module.exports = {
 
 	// hybrid signin/signup
 	signin: function(userObj, cb) {
+		// userObj = {'roomname': {users: {'stuff': [Object]}}}
 		console.log(userObj);
 		var username = userObj.username;
+		console.log(username);
 
 		findUser({username: username})
 			.then(function(user) {

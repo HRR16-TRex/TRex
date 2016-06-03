@@ -31,10 +31,12 @@ io.on('connection', function(client){
   // first user as the admin if it doesn't already exist.
 
 
-//TODO: create user signin emitted event that sends user object with
-  client.on('userSignin', function(user, callback){
-    userController.signin(user, callback)
-  })
+// maybe todo: create user signin emitted event that sends user object with
+// This is not being currently used
+  // client.on('userSignin', function(user, callback){
+  //   // Update the signin function to actually work 
+  //   userController.signin(user, callback);
+  // });
 
   client.on('instantiateUser', function(user, callback) {
     // check if room already exists, if it doesn't then add it
@@ -51,9 +53,20 @@ io.on('connection', function(client){
     // if room user property doesn't exists, create it and add a user to be the admin
     if (!gameData[user.room].users) {
       gameData[user.room].users = {};
+      
+      // query here on username for wins losses
+      // getWinsAndLosses = function(user) {
+        // return win and loss
+      // } 
+      
+      // var userWin = resultingWin || 0
+      // 
+      
+      // DO Something here to factor in if the user exists already to get their wins and losses @@@@@@@@@@@@@@@@@@@@@@
       gameData[user.room].users[client.id] = { admin: true, username: user.username, wins: 0, loss: 0 };
       callback(true, 'Admin has been added to the room');
     } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
+      // query here
       gameData[user.room].users[client.id] = { username: user.username, wins: 0, loss: 0 };
       callback(true, 'User has been added to the room');
     } else { // error, user probably exists in that room
@@ -69,6 +82,13 @@ io.on('connection', function(client){
 
     console.log(gameData);
   });
+
+// another client.on() to add the users bet to the global variable
+  // in here we'd need to update the users win/loss record in the database
+  // function would be given a username and then update the record @@@@@@@@@@@@@@@@@@@@@@@@
+
+
+
 
   // *********
   // Find and add the time and racer moves
