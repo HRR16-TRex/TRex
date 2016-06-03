@@ -13,7 +13,6 @@ angular.module("app.race", ['ngRoute'])
         console.log(msg);
       });
 
-      // TEMP VAR REFACTOR THIS*****
       $scope.room = $routeParams.roomId;
 
       // instantiate user on the server when connected to a room
