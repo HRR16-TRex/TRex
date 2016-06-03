@@ -30,8 +30,15 @@ io.on('connection', function(client){
   // This is also a convenient spot to add the room and set the 
   // first user as the admin if it doesn't already exist.
 
+
+//TODO: create user signin emitted event that sends user object with
+  client.on('userSignin', function(user, callback){
+    userController.signin(user, callback)
+  })
+
   client.on('instantiateUser', function(user, callback) {
     // check if room already exists, if it doesn't then add it
+    console.log("40 server.js ", userController.signin(user, callback));
     if (!gameData[user.room]) {
       gameData[user.room] = {};
     }
@@ -52,7 +59,7 @@ io.on('connection', function(client){
     } else { // error, user probably exists in that room
       callback(false, 'User already exists in this room');
     }
-      
+
     // *********
     // A database query may occur in this block
     // if we want to pull the users win/loss record
