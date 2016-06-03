@@ -1,9 +1,8 @@
-angular.module("app.race", [])
+angular.module("app.race", ['ngRoute'])
   
-  .controller("raceController", function($scope, $timeout, $location){
+  .controller("raceController", function($scope, $timeout, $location, $routeParams){
       $scope.countdownTime = 1;
       $scope.timerRunning = true;
-      console.log('this is the ', $location.path());
       $scope.racerChosen = false;
         
       $scope.startTimer = function (){
@@ -54,20 +53,34 @@ angular.module("app.race", [])
         console.log('Countdown complete');
       };
       
+      
+      // NEW STUFF BELOW HERE ****
+      
+      // when a player joins, we can send all the players (emit) in the global variable
+      // for the room back to the client
+      // so you'll get an array of users with the key {username: racerChosen}
+      
+      var username = $routeParams.userId;
+      var roomname = $routeParams.roomId;
+ 
       $scope.racerChoices=['red', 'blue', 'green'];
       
       $scope.sendChatMessage= function(message) {
+        // TODO message 
+        // the format of what is expecting
+        // {roomname:}
         console.log(message);
       };
       
       $scope.chooseRacer = function(racer) {
+        // TODO 
         console.log(racer);
         $scope.racerChosen = true;
       };
       
       // {racename: {users: [], racerData: []}}
       // users could be a string or an object for later on
-      $scope.userList = [{name: 'zhuts', racer: 'red'}, {name:'bdpellet', racer: 'blue'}, {name:'summertime', racer: 'green'}];
+      $scope.userList = [{name: 'zhuts', racer: 'red'}, {name: 'andrew', racer: 'blue'}, {name:'bdpellet', racer: 'blue'}, {name:'summertime', racer: 'green'}];
   });
 
 
@@ -83,6 +96,7 @@ var isAnimating = false;
 socket.on('test', function(message) {
   console.log(message);
 });
+
 
 socket.on('setClock', function(time) {
   console.log('clock set');
