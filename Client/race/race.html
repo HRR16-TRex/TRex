@@ -13,7 +13,7 @@
   <form ng-submit="chooseRacer(selectedRacer)" ng-show="!racerChosen">
     <select ng-model="selectedRacer" ng-options="racers for racers in racerChoices">
     </select>
-    <button>Choose Racer</button>
+    <button>Choose</button>
   </form>
   <h4 ng-show="racerChosen">Racer chosen: {{selectedRacer}}</h4>
   <div class="userList">
