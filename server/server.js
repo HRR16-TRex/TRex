@@ -18,60 +18,85 @@ app.use(express.static(__dirname + '/../Client'));
 
 var port = process.env.PORT || 3030;
 
-var router = express.Router();
-// All of our routes will be prefixed with /api
-app.use('/api', router);
-
-// Basic router to run first
-router.use(function(req, res, next) {
-    console.log('A request has been sent.');
-    next(); // sends us to the next route
-});
-
-
-    // Should have a req.body.user and a req.body.roomname
-    // interact here with the database given the user and roomname
-    // redirect to /req.body.roomname with a status code of 201
-router.route('/signin')
-
-  .post(function(req,res, cb) {
-
-    userController.signin(req, res, cb);
-    res.status(201).send('success');
-  });
-
-router.route('/raceView/*')
-
-  .get(function(req, res, cb) {
-    // Should query the database with the given roomname (may need to check req.url)
-    var roomname = req.url;
-  })
-  
-  .post(function(req, res, cb) {
-    // Will need to query the database for betting and things like that (stretch goals)
-  });
-    
+var gameData = {};
 
 io.on('connection', function(client){
-  client.emit('test', 'hello from server');
+  client.emit('test', 'hello from the other sideeeee');
 
-  // when set timer is clicked, the client sends information here to be executed
-  client.on('generateRaceData', function(time, racers) {
-    io.sockets.emit('setClock');
-    generateRacerMoves(time, racers);
+  // *********
+  // Attach a user to a room
+  // racer controller has been loaded for a client so the 
+  // user information needs to get added to the global object. 
+  // This is also a convenient spot to add the room and set the 
+  // first user as the admin if it doesn't already exist.
+
+  client.on('instantiateUser', function(user, callback) {
+    // check if room already exists, if it doesn't then add it
+    if (!gameData[user.room]) {
+      gameData[user.room] = {};
+    }
+
+    // ********
+    // When users are added, the client id is stored as the key
+    // for that user. This makes emitting room data back to the
+    // clients that are in that specific room an easy task.
+
+    // if room user property doesn't exists, create it and add a user to be the admin
+    if (!gameData[user.room].users) {
+      gameData[user.room].users = {};
+      gameData[user.room].users[client.id] = { admin: true, username: user.username, wins: 0, loss: 0 };
+      callback(true, 'Admin has been added to the room');
+    } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
+      gameData[user.room].users[client.id] = { username: user.username, wins: 0, loss: 0 };
+      callback(true, 'User has been added to the room');
+    } else { // error, user probably exists in that room
+      callback(false, 'User already exists in this room');
+    }
+      
+    // *********
+    // A database query may occur in this block
+    // if we want to pull the users win/loss record
+    // we would need to query on the user passed in
+    // and add its stats along with the username
+    // into the global variable
+
+    console.log(gameData);
   });
 
-  // some reason needed to pass a param in for it to work, status is a boolean
-  client.on('startRace', function(status) {
-    console.log('race started from client');
-    if (status) {
-      io.sockets.emit('startCountdown');
-      // io.sockets.emit will emit this information to all clients
-      io.sockets.emit('animateRacers', racerMoves);
+  // *********
+  // Find and add the time and racer moves
+  // to the global variable, this will be
+  // emitted back to all clients that are a
+  // part of this room through clientId
+  client.on('setRoomTime', function(roomInfo, callback) {
+    // set the time for the room specified
+    gameData[roomInfo.room].time = roomInfo.time;
+    // add the racerMoves for the specified room
+    gameData[roomInfo.room].racerMoves = generateRacerMoves(roomInfo.time, ['one','two','three','four','five']);
+    // only send room data to clients that are a part of that specific room
+    for (var client in gameData[roomInfo.room].users) {
+      io.to(client).emit('retrieveRoomData', gameData[roomInfo.room], 'Game data retrieved for room: ' + roomInfo.room);
+    }
+    // log back to the admin that the server stored accepted the time
+    callback(true, 'Server has stored your time for room: ' + roomInfo.room);
+  });
+
+  // *********
+  // Trigger that comes from the admin client,
+  // this will notify all clients that are a 
+  // part of the same room to start their countdown
+  // and animate the racers.
+  client.on('toggleRace', function(race, callback) {
+    if (race.status) {
+      // only trigger the clients that are a part of the specific room
+      for (var client in gameData[race.room].users) {
+        io.to(client).emit('startRace', true, 'The race for room ' + race.room + ' has begun!');
+      }
+      callback(true, 'Server has triggered the race to start for room: ' + race.room);
+    } else {
+      callback(false, 'Server failed to start the race for room: ' + race.room)
     }
   });
-
-  console.log('a user connected with io');
 });
 
 
@@ -79,6 +104,7 @@ http.listen(port, function(){
   console.log('listening on port ' + port);
 });
 
+// TODO: improve this logic and make the movement more interesting
 var racerMoves = {};
 
 var generateRacerMoves = function(time, racers) {
@@ -106,5 +132,5 @@ var generateRacerMoves = function(time, racers) {
     }
   }
 
-  racerMoves = moves;
+  return moves;
 }
