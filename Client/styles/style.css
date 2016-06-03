@@ -7,16 +7,26 @@ body {
 }
 
 #raceView {
-  height: 900px;
+  height: 600px;
   background-image: url(../assets/bg.png);
   background-repeat: repeat-x;
   padding-right: 250px;
+  display: inline-block;
+  width: 90%;
+}
+
+.racerColumn {
+  
+}
+
+.chatWindow {
+  
 }
 
 .trex {
-  position: absolute;
+  position: relative;
   left: 10px;
-  top: 350px;
+  top: 43%;
   width: 122px;
   height: 92px;
   border: #000 1px solid;
@@ -33,15 +43,15 @@ body {
 }
 
 .two {
-  top: 400px;
+  top: 35%;
 }
 
 .three {
-  top: 450px;
+  top: 28%;
 }
 
 .four {
-  top: 500px;
+  t/*op: 45%;
 }
 
 .five {
@@ -50,4 +60,4 @@ body {
 
 .six {
   top: 600px;
-}
+}*/
