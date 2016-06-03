@@ -32,15 +32,13 @@ router.use(function(req, res, next) {
     // Should have a req.body.user and a req.body.roomname
     // interact here with the database given the user and roomname
     // redirect to /req.body.roomname with a status code of 201
-
-
 router.route('/signin')
 
   .post(function(req,res, cb) {
 
     userController.signin(req, res, cb);
     res.status(201).send('success');
-  })
+  });
 
 router.route('/raceView/*')
 
@@ -91,7 +89,7 @@ var generateRacerMoves = function(time, racers) {
     var racerTime = 0, move;
     moves[racers[i]] = [];
 
-    for (var j = 0; j < 95; j++) {
+    for (var j = 0; j < 100; j++) {
       moves[racers[i]].push({time:time / 100, distance: 1});
     }
   }

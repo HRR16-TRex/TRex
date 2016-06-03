@@ -6,20 +6,38 @@ body {
   /*background-image: url(../assets/green-t-rex-background.jpg)*/
 }
 
+.timerView {
+  width: 50%;
+  margin: 0 auto;
+}
 #raceView {
-  height: 900px;
+  height: 450px;
   background-image: url(../assets/bg.png);
   background-repeat: repeat-x;
   padding-right: 250px;
+  display: inline-block;
+  width: 50%;
+}
+
+.racerColumn {
+  display: inline-block;
+  height: 450px;
+  width: 12%;
+}
+
+.chatWindow {
+  width: 12%;
+  height: 450px;
+  display: inline-block;
 }
 
 .trex {
-  position: absolute;
+  position: relative;
   left: 10px;
-  top: 350px;
+  top: 58%;
   width: 122px;
   height: 92px;
-  border: #000 1px solid;
+  border: transparent 1px solid;
   transform: scaleX(-1);
   background-image: url(../assets/trex.gif);
 }
@@ -33,15 +51,15 @@ body {
 }
 
 .two {
-  top: 400px;
+  top: 45%;
 }
 
 .three {
-  top: 450px;
+  top: 33%;
 }
 
-.four {
-  top: 500px;
+/*.four {
+  top: 45%;
 }
 
 .five {
@@ -50,4 +68,4 @@ body {
 
 .six {
   top: 600px;
-}
+}*/

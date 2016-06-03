@@ -1,8 +1,9 @@
-angular.module("app.race", [])
+angular.module("app.race", ['ngRoute'])
   
-  .controller("raceController", function($scope, $timeout){
+  .controller("raceController", function($scope, $timeout, $location, $routeParams){
       $scope.countdownTime = 1;
       $scope.timerRunning = true;
+      $scope.racerChosen = false;
         
       $scope.startTimer = function (){
         $scope.$broadcast('timer-start');
@@ -33,7 +34,7 @@ angular.module("app.race", [])
         var racers = [];
         $('.trex').each(function() {
           racers.push(this.classList[1]);
-        })
+        });
         
         // passes the timer and an array of all the racers and their unique class to the server
         socket.emit('generateRaceData', $scope.countdownTime, racers);
@@ -51,7 +52,47 @@ angular.module("app.race", [])
         winner.css('border', '5px red solid');
         console.log('Countdown complete');
       };
-  })
+      
+      
+      // when a player joins, we can send all the players (emit) in the global variable
+      // for the room back to the client
+      // so you'll get an array of users with the key {username: racerChosen}
+      
+      // How to access the user and room from the url
+      // var username = $routeParams.userId;
+      // var roomname = $routeParams.roomId;
+      
+      // Provides the options for the different racers in the drop down
+      $scope.racerChoices=['red', 'blue', 'green'];
+      
+      $scope.sendChatMessage= function(message) {
+        var userMessage = {
+          user: $routeParams.userId,
+          message: message
+        };
+        
+        $scope.messageList.push(userMessage);
+        // TODO actually send this message to socket.io
+        console.log(userMessage);
+      };
+      
+      $scope.chooseRacer = function(racer) {
+        // TODO actually send the racer and the user to socket io
+        var user= {
+          user: $routeParams.userId,
+          racerChoice: racer
+        };
+        
+        $scope.userList.push(user);
+        
+        // This hides the form and displays the users choice
+        $scope.racerChosen = true;
+      };
+      
+      $scope.userList = [{user: 'zhuts', racerChoice: 'red'}, {user:'bdpellet', racerChoice: 'blue'}, {user:'summertime', racerChoice: 'green'}];
+      
+      $scope.messageList = [{user: 'zhuts', message: 'my racer is the best!'}, {user: 'bdpellet', message: 'go blue go!'}];
+  });
 
 
 // maybe a better way we can make this part of the controller
@@ -67,13 +108,14 @@ socket.on('test', function(message) {
   console.log(message);
 });
 
+
 socket.on('setClock', function(time) {
   console.log('clock set');
 });
 
 socket.on('startCountdown', function() {
   console.log('countdown started');
-})
+});
 
 socket.on('animateRacers', function(racerMoves) {
   if (!isAnimating) {
