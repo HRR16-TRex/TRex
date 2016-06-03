@@ -1,10 +1,10 @@
 angular.module("app.race", [])
   
-  .controller("raceController", function($scope, $timeout){
+  .controller("raceController", function($scope, $timeout, $location){
       $scope.countdownTime = 1;
       $scope.timerRunning = true;
-      // console.log('this is the ', AuthController);
-      
+      console.log('this is the ', $location.path());
+      $scope.racerChosen = false;
         
       $scope.startTimer = function (){
         $scope.$broadcast('timer-start');
@@ -62,6 +62,7 @@ angular.module("app.race", [])
       
       $scope.chooseRacer = function(racer) {
         console.log(racer);
+        $scope.racerChosen = true;
       };
       
       // {racename: {users: [], racerData: []}}

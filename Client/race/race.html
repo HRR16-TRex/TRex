@@ -10,9 +10,12 @@
 </div>
 
 <div class="racerColumn">
-  <select ng-model="selectedRacer" ng-options="racers for racers in racerChoices">
-  </select>
-  <button ng-click="chooseRacer(selectedRacer)">Choose Racer</button>
+  <form ng-submit="chooseRacer(selectedRacer)" ng-show="!racerChosen">
+    <select ng-model="selectedRacer" ng-options="racers for racers in racerChoices">
+    </select>
+    <button>Choose Racer</button>
+  </form>
+  <h4 ng-show="racerChosen">Racer chosen: {{selectedRacer}}</h4>
   <div class="userList">
     <h4>Red</h4>
     <p ng-repeat="user in userList | filter: 'red'">{{user.name}}</p>
