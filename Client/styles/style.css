@@ -7,7 +7,7 @@ body {
 }
 
 #raceView {
-  height: 600px;
+  height: 500px;
   background-image: url(../assets/bg.png);
   background-repeat: repeat-x;
   padding-right: 250px;
@@ -26,10 +26,10 @@ body {
 .trex {
   position: relative;
   left: 10px;
-  top: 43%;
+  top: 49%;
   width: 122px;
   height: 92px;
-  border: #000 1px solid;
+  border: transparent 1px solid;
   transform: scaleX(-1);
   background-image: url(../assets/trex.gif);
 }
@@ -43,11 +43,11 @@ body {
 }
 
 .two {
-  top: 35%;
+  top: 42%;
 }
 
 .three {
-  top: 28%;
+  top: 33%;
 }
 
 .four {
