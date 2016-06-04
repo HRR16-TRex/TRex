@@ -105,7 +105,7 @@ io.on('connection', function(client){
     var raceResults = generateRacerMoves(roomInfo.time, ['red', 'blue', 'green']);
     gameData[roomInfo.room].racerMoves = raceResults.moves;
     gameData[roomInfo.room].winner = raceResults.winner;
-    console.log(gameData[roomInfo.room].users, 'inside set room time');
+    console.log(gameData[roomInfo.room].winner, 'WINNER IS');
 
     // only send room data to clients that are a part of that specific room
     sendDataToClients(gameData[roomInfo.room].users, 'retrieveRoomData', gameData[roomInfo.room], 'The data race for room ' + roomInfo.room + ' has been loaded');

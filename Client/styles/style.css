@@ -138,7 +138,7 @@ body {
 }
 
 .red {
-  background-image: url(../assets/trex-running-g.gif);
+  background-image: url(../assets/trex-running-r.gif);
 }
 
 .blue {
@@ -147,7 +147,7 @@ body {
 }
 
 .green {
-  background-image: url(../assets/trex-running-r.gif);
+  background-image: url(../assets/trex-running-g.gif);
   top: 33%;
 }
 
