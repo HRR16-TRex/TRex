@@ -42,22 +42,29 @@ module.exports = {
   			console.log('Error: Did not find user stats');
   		}
   	});
-  	
-  	
-  	// findUser({username: username})
-  	//   .then(function(user) {
-  	//   	console.log('this is super inside and user ', user);
-  	  	
-  	//   	if (!user) {
-  	//   		return 0;
-  	//   	} else {
-   //  	  	return user.wins;	  		
-  	//   	}
-  	//   })
-  	//   .fail(function(error) {
-  	//   	cb(error);
-  	//   });
   },
+  
+  updateUserStats: function(username, didUserWin, callback) {
+    // expecting didUserWin to be true if won and false if not
+    if (didUserWin) {
+      User.update({username: username}, {$inc: {wins: 1}}, function (err, data) {
+        if (err) {
+          console.log('Error ', err);
+        } else {
+          console.log('The response was ', data);
+        }
+      });
+    } else {
+      User.update({username: username}, {$inc: {losses: 1}}, function (err, data) {
+        if (err) {
+          console.log('Error ', err);
+        } else {
+          console.log('The response was ', data);
+        }
+      });
+    }
+  },
+  
 // setup for single userObj to be passed, might want arrays instead
 	userWin: function(userObj,cb){
 		var username = userObj.username;

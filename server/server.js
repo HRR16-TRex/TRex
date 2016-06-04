@@ -50,12 +50,13 @@ io.on('connection', function(client){
     // for that user. This makes emitting room data back to the
     // clients that are in that specific room an easy task.
 
-    // if room user property doesn't exists, create it and add a user to be the admin
     userController.getUserStats(user.username, function(userData) {
-      console.log(userData);
+      console.log('this is the userData ', userData);
       console.log('wins ', userData.losses);
+      // if room user property doesn't exists, create it and add a user to be the admin
       
       if (!gameData[user.room].users) {
+        
         gameData[user.room].users = {};
         gameData[user.room].users[client.id] = { admin: true, username: user.username, wins: userData.wins, loss: userData.losses };
         callback(true, 'Admin has been added to the room');
@@ -65,18 +66,10 @@ io.on('connection', function(client){
       } else { // error, user probably exists in that room
         callback(false, 'User already exists in this room');
       }
+      console.log(gameData);
+      
     });
     
-    
-
-    // *********
-    // A database query may occur in this block
-    // if we want to pull the users win/loss record
-    // we would need to query on the user passed in
-    // and add its stats along with the username
-    // into the global variable
-
-    console.log(gameData);
   });
 
 // another client.on() to add the users bet to the global variable
