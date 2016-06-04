@@ -6,6 +6,8 @@ angular.module("app.race", ['ngRoute'])
 
       // room data, populated from the server when time gets set by admin
       $scope.connectedUsers = {};
+      console.log($scope.connectedUsers);
+
       $scope.racerMoves = {};
 
       // test server connection
@@ -16,7 +18,9 @@ angular.module("app.race", ['ngRoute'])
       $scope.room = $routeParams.roomId;
 
       // instantiate user on the server when connected to a room
-      socket.emit('instantiateUser', {username: 'test', room: $scope.room }, function(result, msg) {
+      // 2nd callback parameter is checking if admin or not. possibly could be refactored?
+      socket.emit('instantiateUser', {username: 'test', room: $scope.room }, function(result, msg, isAdmin) {
+        $scope.isUserAdmin = isAdmin;
         console.log(logMsg(result, msg));
       })
 
@@ -25,6 +29,7 @@ angular.module("app.race", ['ngRoute'])
         // populate controller's scope data
         $scope.countdownTime = data.time;
         $scope.connectedUsers = data.users;
+        console.log(data.users);
         $scope.racerMoves = data.racerMoves;
 
         // update timer directive
@@ -157,7 +162,7 @@ angular.module("app.race", ['ngRoute'])
         $scope.racerChosen = true;
       };
       
-      $scope.userList = [{user: 'zhuts', racerChoice: 'red'}, {user:'bdpellet', racerChoice: 'blue'}, {user:'summertime', racerChoice: 'green'}];
+      $scope.userList = [{user: 'zhuts', wins: 1, loss: 100, racerChoice: 'red'}, {user:'bdpellet', wins: 1, loss: 100, racerChoice: 'blue'}, {user:'summertime', wins: 1000, loss: 0, racerChoice: 'green'}];
       
       $scope.messageList = [{user: 'zhuts', message: 'my racer is the best!'}, {user: 'bdpellet', message: 'go blue go!'}];
   })
@@ -237,8 +242,6 @@ socket.on('startCountdown', function() {
           });
         });
       }
-  })
-
 
 
 // maybe a better way we can make this part of the controller

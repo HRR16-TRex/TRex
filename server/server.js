@@ -20,6 +20,7 @@ var port = process.env.PORT || 3030;
 var gameData = {};
 
 io.on('connection', function(client){
+  console.log("24 server.js", client);
   client.emit('test', 'hello from the other sideeeee');
 
   // *********
@@ -50,10 +51,10 @@ io.on('connection', function(client){
         
         gameData[user.room].users = {};
         gameData[user.room].users[client.id] = { admin: true, username: user.username, wins: userData.wins, loss: userData.losses };
-        callback(true, 'Admin has been added to the room');
+        callback(true, 'Admin has been added to the room', true);
       } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
         gameData[user.room].users[client.id] = { admin: false, username: user.username, wins: userData.wins, loss: userData.losses };
-        callback(true, 'User has been added to the room');
+        callback(true, 'User has been added to the room', false);
       } else { // error, user probably exists in that room
         callback(false, 'User already exists in this room');
       }

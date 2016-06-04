@@ -1,7 +1,6 @@
 angular.module("app", [
   "timer",
   "app.auth",
-  "app.services",
   "app.race",
   "ngRoute"
   ])
