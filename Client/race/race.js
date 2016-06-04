@@ -29,8 +29,9 @@ angular.module("app.race", ['ngRoute'])
         // populate controller's scope data
         $scope.countdownTime = data.time;
         $scope.racerMoves = data.racerMoves;
-        $scope.connectedUsers = [data.users];
+        addOrUpdateUsers(data.users);
 
+        console.log($scope.connectedUsers);
         // update timer directive
         $scope.$broadcast('timer-set-countdown-seconds', $scope.countdownTime);
         
@@ -39,7 +40,8 @@ angular.module("app.race", ['ngRoute'])
 
       // whenever a user is instantiated on the server, add the updated user to $scope.connectedUsers
       socket.on('retrieveUserData', function(data, msg) {
-        $scope.connectedUsers = [data.users];
+        addOrUpdateUsers(data.users);
+        // $scope.connectedUsers = [data.users];
         console.log('User data loaded: ' + msg);
       });
 
@@ -126,6 +128,50 @@ angular.module("app.race", ['ngRoute'])
         console.log('Timer Stopped - data = ', data);
       });
 
+      var addOrUpdateUsers = function(users) {
+        var connectedUsers = {};
+
+        for (var i = 0; i < $scope.connectedUsers.length; i++) {
+          connectedUsers[$scope.connectedUsers[i].username] = $scope.connectedUsers[i];
+          connectedUsers[$scope.connectedUsers[i].username].index = i;
+        }
+
+        for (var user in users) {
+          if (!connectedUsers[user]) {
+            $scope.connectedUsers.push(users[user]);
+          } else {
+            $scope.connectedUsers[connectedUsers[user].index].racerChoice = users[user].racerChoice;
+          }
+        }
+
+
+        // Maybe quadradic time complexity could be avoided
+        // here. I ran into issues filtering the usernames in
+        // the frontend if connectedUsers was a object.
+        
+
+        // console.log(users);
+        // for (var user in users) {
+        //   var connectedUsers = $scope.connectedUsers.slice(), exists;
+        //   if (!$scope.connectedUsers.length) {
+        //     $scope.connectedUsers.push(users[user]);
+        //   } else if ($scope.connectedUsers.length) {
+        //     for (var i = 0; i < connectedUsers.length; i++) {
+        //       if ($scope.connectedUsers[i].username === users[user].username) {
+        //         console.log('updated', users[user])
+        //         $scope.connectedUsers[i].racerChoice = users[user].racerChoice;
+        //       } else {
+        //         exists = true;
+        //       }
+        //     }
+        //   } else if (!exists) {
+        //     console.log('added', users[user]);
+        //     $scope.connectedUsers.push(users[user]);
+        //   }
+        // }
+        // console.log($scope.connectedUsers)
+      }
+
       var animateMovement = function(racer, moves) {
         moves.forEach(function(move) {
           $('.' + racer).animate({'left':'+=' + move.distance + '%'}, {
@@ -163,8 +209,7 @@ angular.module("app.race", ['ngRoute'])
       };
       
       $scope.chooseRacer = function(racer) {
-        // TODO actually send the racer and the user to socket io
-        var user= {
+        var user = {
           user: $scope.username,
           room: $scope.room,
           racerChoice: racer
