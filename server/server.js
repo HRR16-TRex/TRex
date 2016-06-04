@@ -40,7 +40,7 @@ io.on('connection', function(client){
 
   client.on('instantiateUser', function(user, callback) {
     // check if room already exists, if it doesn't then add it
-    console.log("40 server.js ", userController.signin(user, callback));
+    console.log('this is the user ', user);
     if (!gameData[user.room]) {
       gameData[user.room] = {};
     }
@@ -51,27 +51,23 @@ io.on('connection', function(client){
     // clients that are in that specific room an easy task.
 
     // if room user property doesn't exists, create it and add a user to be the admin
-    if (!gameData[user.room].users) {
-      gameData[user.room].users = {};
+    userController.getUserStats(user.username, function(userData) {
+      console.log(userData);
+      console.log('wins ', userData.losses);
       
-      // query here on username for wins losses
-      // getWinsAndLosses = function(user) {
-        // return win and loss
-      // } 
-      
-      // var userWin = resultingWin || 0
-      // 
-      
-      // DO Something here to factor in if the user exists already to get their wins and losses @@@@@@@@@@@@@@@@@@@@@@
-      gameData[user.room].users[client.id] = { admin: true, username: user.username, wins: 0, loss: 0 };
-      callback(true, 'Admin has been added to the room');
-    } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
-      // query here
-      gameData[user.room].users[client.id] = { username: user.username, wins: 0, loss: 0 };
-      callback(true, 'User has been added to the room');
-    } else { // error, user probably exists in that room
-      callback(false, 'User already exists in this room');
-    }
+      if (!gameData[user.room].users) {
+        gameData[user.room].users = {};
+        gameData[user.room].users[client.id] = { admin: true, username: user.username, wins: userData.wins, loss: userData.losses };
+        callback(true, 'Admin has been added to the room');
+      } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
+        gameData[user.room].users[client.id] = { username: user.username, wins: userData.wins, loss: userData.losses };
+        callback(true, 'User has been added to the room');
+      } else { // error, user probably exists in that room
+        callback(false, 'User already exists in this room');
+      }
+    });
+    
+    
 
     // *********
     // A database query may occur in this block

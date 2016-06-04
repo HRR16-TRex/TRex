@@ -32,7 +32,32 @@ module.exports = {
 			});
 	},
 
-
+      // var userWins = userController.getUserWins(user.username);
+      // var userLosses = userController.getUserLosses(user.username);
+  getUserStats: function(username, callback) {	
+  	User.findOne({username: username}).exec(function(err, foundUser) {
+  		if (foundUser) {
+  			callback(foundUser);
+  		} else {
+  			console.log('Error: Did not find user stats');
+  		}
+  	});
+  	
+  	
+  	// findUser({username: username})
+  	//   .then(function(user) {
+  	//   	console.log('this is super inside and user ', user);
+  	  	
+  	//   	if (!user) {
+  	//   		return 0;
+  	//   	} else {
+   //  	  	return user.wins;	  		
+  	//   	}
+  	//   })
+  	//   .fail(function(error) {
+  	//   	cb(error);
+  	//   });
+  },
 // setup for single userObj to be passed, might want arrays instead
 	userWin: function(userObj,cb){
 		var username = userObj.username;
