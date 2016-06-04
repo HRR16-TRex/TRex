@@ -11,7 +11,7 @@ body {
   margin: 0 auto;
 }
 #raceView {
-  height: 450px;
+  height: 600px;
   background-image: url(../assets/bg.png);
   background-repeat: repeat-x;
   padding-right: 250px;
@@ -39,7 +39,6 @@ body {
   height: 92px;
   border: transparent 1px solid;
   transform: scaleX(-1);
-  background-image: url(../assets/trex.gif);
 }
 
 @keyframes backgroundScroll {
@@ -47,14 +46,17 @@ body {
   to {background-position: -1200px 0;}
 }
 
-.one {
+.red {
+  background-image: url(../assets/trex-running-g.gif);
 }
 
-.two {
+.blue {
+  background-image: url(../assets/trex-running-b.gif);
   top: 45%;
 }
 
-.three {
+.green {
+  background-image: url(../assets/trex-running-r.gif);
   top: 33%;
 }
 
