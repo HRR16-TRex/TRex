@@ -46,16 +46,16 @@ body {
   to {background-position: -1200px 0;}
 }
 
-.one {
+.red {
   background-image: url(../assets/trex-running-g.gif);
 }
 
-.two {
+.blue {
   background-image: url(../assets/trex-running-b.gif);
   top: 45%;
 }
 
-.three {
+.green {
   background-image: url(../assets/trex-running-r.gif);
   top: 33%;
 }

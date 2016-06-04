@@ -3,7 +3,6 @@ angular.module("app.race", ['ngRoute'])
   .controller("raceController", function($scope, $timeout, socket, $routeParams){
       $scope.countdownTime = 1;
       $scope.timerRunning = true;
-      $scope.isUserAdmin = false;
 
       $scope.room = $routeParams.roomId;
       $scope.username = $routeParams.userId;
@@ -130,6 +129,7 @@ angular.module("app.race", ['ngRoute'])
         $('.trex').each(function() {
           if (!winner || Number($(this).css('left').replace('px','')) > Number(winner.css('left').replace('px',''))) {
             winner = $(this);
+            console.log(winner);
           }
         });
 
@@ -161,10 +161,6 @@ angular.module("app.race", ['ngRoute'])
 
         // foreach updated user from the server
         for (var user in users) {
-          // add admin user
-          if (users[user].admin && users[user].username === $scope.username) {
-            $scope.isUserAdmin = true;
-          }
           // check if user is a part of connectedUsers already
           if (!connectedUsers[user]) {
             $scope.connectedUsers.push(users[user]);
@@ -179,6 +175,7 @@ angular.module("app.race", ['ngRoute'])
       // This gets triggered by the server whenever
       // the admin user clicks 'start timer'
       var animateMovement = function(racer, moves) {
+        delete moves.winner;
         moves.forEach(function(move) {
           $('.' + racer).animate({'left':'+=' + move.distance + '%'}, {
             duration: move.time

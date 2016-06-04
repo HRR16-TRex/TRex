@@ -86,7 +86,11 @@ io.on('connection', function(client){
     // set the time for the room specified
     gameData[roomInfo.room].time = roomInfo.time;
     // add the racerMoves for the specified room
-    gameData[roomInfo.room].racerMoves = generateRacerMoves(roomInfo.time, ['one','two','three']);
+    var raceResults = generateRacerMoves(roomInfo.time, ['red', 'blue', 'green']);
+    gameData[roomInfo.room].racerMoves = raceResults.moves;
+    gameData[roomInfo.room].winner = raceResults.winner;
+    console.log(gameData[roomInfo.room]);
+
     // only send room data to clients that are a part of that specific room
     sendDataToClients(gameData[roomInfo.room].users, 'retrieveRoomData', gameData[roomInfo.room], 'The race for room ' + roomInfo.room + ' has begun!');
     // log back to the admin that the server stored accepted the time
@@ -157,5 +161,5 @@ var generateRacerMoves = function(time, racers) {
     }
   }
 
-  return moves;
+  return { moves:moves, winner:winner };
 }
