@@ -41,6 +41,7 @@ angular.module("app.race", ['ngRoute'])
 
       // whenever a user is instantiated on the server, add the updated user to $scope.connectedUsers
       socket.on('retrieveUserData', function(data, msg) {
+        // console.log('$scope.connectedUsers ', $scope.connectedUsers);
         addOrUpdateUsers(data.users);
         // $scope.connectedUsers = [data.users];
         console.log('User data loaded: ' + msg);
