@@ -72,11 +72,7 @@ io.on('connection', function(client){
     
   });
 
-// another client.on() to add the users bet to the global variable
-  // in here we'd need to update the users win/loss record in the database
-  // function would be given a username and then update the record @@@@@@@@@@@@@@@@@@@@@@@@
-
-
+  // 
 
 
   // *********

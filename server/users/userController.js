@@ -19,8 +19,6 @@ module.exports = {
     });
 	},
 
-      // var userWins = userController.getUserWins(user.username);
-      // var userLosses = userController.getUserLosses(user.username);
   getUserStats: function(username, callback) {	
   	User.findOne({username: username}).exec(function(err, foundUser) {
   		if (foundUser) {
@@ -33,6 +31,7 @@ module.exports = {
   
   updateUserStats: function(username, didUserWin, callback) {
     // expecting didUserWin to be true if won and false if not
+    // check to ensure it is properly incrementing
     if (didUserWin) {
       User.update({username: username}, {$inc: {wins: 1}}, function (err, data) {
         if (err) {
