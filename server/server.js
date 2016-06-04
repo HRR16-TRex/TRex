@@ -7,7 +7,7 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-// var db = require('./config/config.js');
+var db = require('./config/config.js');
 var userController = require('./users/userController.js');
 
 app.use(morgan('dev'));
@@ -32,6 +32,7 @@ io.on('connection', function(client){
   client.on('instantiateUser', function(user, callback) {
     // check if room already exists, if it doesn't then add it
     console.log('this is the user ', user);
+
     if (!gameData[user.room]) {
       gameData[user.room] = {};
     }
@@ -47,14 +48,14 @@ io.on('connection', function(client){
         sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
         console.log('admin added', gameData[user.room].users)
         callback(true, 'Admin has been added to the room', true);
-      } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
+      } else if (!gameData[user.room].users[user.username]) { // add the user if it doesn't exist in that room
         gameData[user.room].users[user.username] = { admin: false, username: user.username, clientId: client.id, wins: 0, loss: 0, racerChoice: null };
         sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
         callback(true, 'User has been added to the room', false);
       } else { // error, user probably exists in that room
         callback(false, 'User already exists in this room');
       }
-      
+
     // userController.getUserStats(user.username, function(userData) {
     //   // if room user property doesn't exists, create it and add a user to be the admin
     //   if (!gameData[user.room].users) {
@@ -70,6 +71,7 @@ io.on('connection', function(client){
     //     callback(false, 'User already exists in this room');
     //   }
     // });
+
   });
 
   // Add bet information from the client

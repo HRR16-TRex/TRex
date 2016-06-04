@@ -19,7 +19,7 @@ angular.module("app.race", ['ngRoute'])
 
       // instantiate user on the server when connected to a room
       // 2nd callback parameter is checking if admin or not. possibly could be refactored?
-      socket.emit('instantiateUser', {username: 'test', room: $scope.room }, function(result, msg, isAdmin) {
+      socket.emit('instantiateUser', {username: $scope.username, room: $scope.room }, function(result, msg, isAdmin) {
         $scope.isUserAdmin = isAdmin;
         console.log(logMsg(result, msg));
       })
