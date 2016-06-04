@@ -85,7 +85,7 @@ body {
   filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#d3d3d3', endColorstr='#e7e7e7', GradientType=0 );
   display: block;
   padding: 0px 10px;
-  color: #999;
+  color: black;
   font-size: .8em;
   font-weight: bold;
   text-shadow: 1px 1px 1px #FFF;
