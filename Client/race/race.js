@@ -27,6 +27,7 @@ angular.module("app.race", ['ngRoute'])
       // get room data generated on the server for this room
       socket.on('retrieveRoomData', function(data, msg) {
         // populate controller's scope data
+        console.log(data);
         $scope.countdownTime = data.time;
         $scope.racerMoves = data.racerMoves;
         addOrUpdateUsers(data.users);

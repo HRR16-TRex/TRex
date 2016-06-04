@@ -41,21 +41,35 @@ io.on('connection', function(client){
     // for that user. This makes emitting room data back to the
     // clients that are in that specific room an easy task since
     // we can access the clientId of that user
-
-    userController.getUserStats(user.username, function(userData) {
-      // if room user property doesn't exists, create it and add a user to be the admin
-      if (!gameData[user.room].users) {
+    if (!gameData[user.room].users) {
         gameData[user.room].users = {};
-        gameData[user.room].users[client.id] = { admin: true, username: user.username, wins: userData.wins, loss: userData.losses };
-        gameData[user.room].users[user.username] = { admin: true, username: user.username, clientId: client.id, wins: userData.wins, loss: userData.losses, racerChoice: null };
+        gameData[user.room].users[user.username] = { admin: true, username: user.username, clientId: client.id, wins: 0, loss: 0, racerChoice: null };
+        sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
+        console.log('admin added', gameData[user.room].users)
         callback(true, 'Admin has been added to the room', true);
       } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
-        gameData[user.room].users[user.username] = { admin: false, username: user.username, clientId: client.id, wins: userData.wins, loss: userData.losses, racerChoice: null };
+        gameData[user.room].users[user.username] = { admin: false, username: user.username, clientId: client.id, wins: 0, loss: 0, racerChoice: null };
+        sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
         callback(true, 'User has been added to the room', false);
       } else { // error, user probably exists in that room
         callback(false, 'User already exists in this room');
       }
-    });
+      
+    // userController.getUserStats(user.username, function(userData) {
+    //   // if room user property doesn't exists, create it and add a user to be the admin
+    //   if (!gameData[user.room].users) {
+    //     gameData[user.room].users = {};
+    //     gameData[user.room].users[user.username] = { admin: true, username: user.username, clientId: client.id, wins: userData.wins, loss: userData.losses, racerChoice: null };
+    //     sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
+    //     callback(true, 'Admin has been added to the room', true);
+    //   } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
+    //     gameData[user.room].users[user.username] = { admin: false, username: user.username, clientId: client.id, wins: userData.wins, loss: userData.losses, racerChoice: null };
+    //     sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
+    //     callback(true, 'User has been added to the room', false);
+    //   } else { // error, user probably exists in that room
+    //     callback(false, 'User already exists in this room');
+    //   }
+    // });
   });
 
   // Add bet information from the client
@@ -89,10 +103,10 @@ io.on('connection', function(client){
     var raceResults = generateRacerMoves(roomInfo.time, ['red', 'blue', 'green']);
     gameData[roomInfo.room].racerMoves = raceResults.moves;
     gameData[roomInfo.room].winner = raceResults.winner;
-    console.log(gameData[roomInfo.room]);
+    console.log(gameData[roomInfo.room].users, 'inside set room time');
 
     // only send room data to clients that are a part of that specific room
-    sendDataToClients(gameData[roomInfo.room].users, 'retrieveRoomData', gameData[roomInfo.room], 'The race for room ' + roomInfo.room + ' has begun!');
+    sendDataToClients(gameData[roomInfo.room].users, 'retrieveRoomData', gameData[roomInfo.room], 'The data race for room ' + roomInfo.room + ' has been loaded');
     // log back to the admin that the server stored accepted the time
     callback(true, 'Server has stored your time for room: ' + roomInfo.room);
   });
