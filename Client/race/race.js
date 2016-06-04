@@ -162,7 +162,7 @@ angular.module("app.race", ['ngRoute'])
         $scope.racerChosen = true;
       };
       
-      $scope.userList = [{user: 'zhuts', W: 1, L: 100, racerChoice: 'red'}, {user:'bdpellet', W: 1, L: 100, racerChoice: 'blue'}, {user:'summertime', W: 100, L: 0, racerChoice: 'green'}];
+      $scope.userList = [{user: 'zhuts', racerChoice: 'red'}, {user:'bdpellet', racerChoice: 'blue'}, {user:'summertime', racerChoice: 'green'}];
       
       $scope.messageList = [{user: 'zhuts', message: 'my racer is the best!'}, {user: 'bdpellet', message: 'go blue go!'}];
   })

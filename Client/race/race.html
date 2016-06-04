@@ -18,11 +18,11 @@
   <h4 ng-show="racerChosen">Racer chosen: {{selectedRacer}}</h4>
   <div class="userList">
     <h4>Red</h4>
-    <p ng-repeat="user in userList | filter: 'red'">{{user.user}}<span>W: {{user.W}}</span><span>L: {{user.L}}</span></p>
+    <p ng-repeat="user in userList | filter: 'red'">{{user.user}}</p>
     <h4>Blue</h4>
-    <p ng-repeat="user in userList | filter: 'blue'">{{user.user}}<span>W: {{user.W}}</span><span>L: {{user.L}}</span></p>
+    <p ng-repeat="user in userList | filter: 'blue'">{{user.user}}</p>
     <h4>Green</h4>
-    <p ng-repeat="user in userList | filter: 'green'">{{user.user}}<span>W: {{user.W}}</span><span>L: {{user.L}}</span></p>
+    <p ng-repeat="user in userList | filter: 'green'">{{user.user}}</p>
   </div>
 </div>
 
