@@ -9,7 +9,6 @@ var io = require('socket.io')(http);
 
 var db = require('./config/config.js');
 var userController = require('./users/userController.js');
-var roomController = require('./rooms/roomController.js');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -31,14 +30,16 @@ io.on('connection', function(client){
   // first user as the admin if it doesn't already exist.
 
 
-//TODO: create user signin emitted event that sends user object with
-  client.on('userSignin', function(user, callback){
-    userController.signin(user, callback)
-  })
+// maybe todo: create user signin emitted event that sends user object with
+// This is not being currently used
+  // client.on('userSignin', function(user, callback){
+  //   // Update the signin function to actually work 
+  //   userController.signin(user, callback);
+  // });
 
   client.on('instantiateUser', function(user, callback) {
     // check if room already exists, if it doesn't then add it
-    console.log("40 server.js ", userController.signin(user, callback));
+    console.log('this is the user ', user);
     if (!gameData[user.room]) {
       gameData[user.room] = {};
     }
@@ -48,27 +49,31 @@ io.on('connection', function(client){
     // for that user. This makes emitting room data back to the
     // clients that are in that specific room an easy task.
 
-    // if room user property doesn't exists, create it and add a user to be the admin
-    if (!gameData[user.room].users) {
-      gameData[user.room].users = {};
-      gameData[user.room].users[client.id] = { admin: true, username: user.username, wins: 0, loss: 0 };
-      callback(true, 'Admin has been added to the room');
-    } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
-      gameData[user.room].users[client.id] = { username: user.username, wins: 0, loss: 0 };
-      callback(true, 'User has been added to the room');
-    } else { // error, user probably exists in that room
-      callback(false, 'User already exists in this room');
-    }
-
-    // *********
-    // A database query may occur in this block
-    // if we want to pull the users win/loss record
-    // we would need to query on the user passed in
-    // and add its stats along with the username
-    // into the global variable
-
-    console.log(gameData);
+    userController.getUserStats(user.username, function(userData) {
+      console.log('this is the userData ', userData);
+      console.log('wins ', userData.losses);
+      // if room user property doesn't exists, create it and add a user to be the admin
+      
+      if (!gameData[user.room].users) {
+        
+        gameData[user.room].users = {};
+        gameData[user.room].users[client.id] = { admin: true, username: user.username, wins: userData.wins, loss: userData.losses };
+        callback(true, 'Admin has been added to the room');
+      } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
+        gameData[user.room].users[client.id] = { admin: false, username: user.username, wins: userData.wins, loss: userData.losses };
+        callback(true, 'User has been added to the room');
+      } else { // error, user probably exists in that room
+        callback(false, 'User already exists in this room');
+      }
+      console.log(gameData);
+      
+    });
+    
   });
+
+  // userController.updateUserStats(username, didUserWin, callback)
+  // Utilize this function for the socket event of updating who won and lost
+
 
   // *********
   // Find and add the time and racer moves
