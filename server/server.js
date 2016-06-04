@@ -78,7 +78,7 @@ io.on('connection', function(client){
   client.on('setUserBet', function(betInfo, callback) {
     var userClientId = gameData[betInfo.room].users[betInfo.user].clientId;
     gameData[betInfo.room].users[betInfo.user].racerChoice = betInfo.racerChoice;
-    sendDataToClients(gameData[betInfo.room].users, 'retrieveRoomData', gameData[betInfo.room], 'A client has placed a bet.');
+    sendDataToClients(gameData[betInfo.room].users, 'retrieveUserData', gameData[betInfo.room], 'A client has placed a bet.');
     callback(true, 'Server has stored your bet.');
   });
 
@@ -105,7 +105,7 @@ io.on('connection', function(client){
     var raceResults = generateRacerMoves(roomInfo.time, ['red', 'blue', 'green']);
     gameData[roomInfo.room].racerMoves = raceResults.moves;
     gameData[roomInfo.room].winner = raceResults.winner;
-    console.log(gameData[roomInfo.room].users, 'inside set room time');
+    console.log(gameData[roomInfo.room].winner, 'WINNER IS');
 
     // only send room data to clients that are a part of that specific room
     sendDataToClients(gameData[roomInfo.room].users, 'retrieveRoomData', gameData[roomInfo.room], 'The data race for room ' + roomInfo.room + ' has been loaded');
