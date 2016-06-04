@@ -198,5 +198,4 @@ angular.module("app.race", ['ngRoute'])
       on: on,
       emit: emit
     };
-  });
-      
+  });     
