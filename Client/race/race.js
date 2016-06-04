@@ -22,7 +22,7 @@ angular.module("app.race", ['ngRoute'])
       socket.emit('instantiateUser', {username: $scope.username, room: $scope.room }, function(result, msg, isAdmin) {
         $scope.isUserAdmin = isAdmin;
         console.log(logMsg(result, msg));
-      })
+      });
 
       // get room data generated on the server for this room
       socket.on('retrieveRoomData', function(data, msg) {
@@ -228,6 +228,8 @@ angular.module("app.race", ['ngRoute'])
   // callback when executing socket methods
 
   .factory('socket', function ($rootScope) {
+    // change the url to heroku-app url and it'll use 80 as the port?
+    // will process.env.PORT work here?
     var socket = io.connect('http://localhost:3030');
 
     var on = function (eventName, callback) {

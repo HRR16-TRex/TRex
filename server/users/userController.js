@@ -1,23 +1,6 @@
 var User = require('./userModel.js');
-var jwt = require('jwt-simple');
 
 module.exports = {
-
-	// hybrid signin/signup
-	// signin: function(userObj, cb) {
- //    // Check the input here
-	// 	console.log('this is the dfsdf', userObj);
-	// 	var username = userObj.username;
-	// 	console.log(username);
-    
- //    User.findOne({username: username}).exec(function(err, foundUser) {
- //      if (!foundUser) {
- //        User.create({username: username});
- //      } else {
- //        return foundUser;
- //      }
- //    });
-	// },
   
   // So this does result in a updating all the array of all our users
   // getAll: function() {

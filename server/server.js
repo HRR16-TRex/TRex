@@ -75,6 +75,7 @@ io.on('connection', function(client){
 
   // Update messages for the room
   client.on('updateMessages', function(messageInfo, callback) {
+    console.log(messageInfo);
     if (!gameData[messageInfo.room].messages) {
       gameData[messageInfo.room].messages = [];
     }
