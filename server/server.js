@@ -20,6 +20,7 @@ var port = process.env.PORT || 3030;
 var gameData = {};
 
 io.on('connection', function(client){
+  console.log("24 server.js", client);
   client.emit('test', 'hello from the other sideeeee');
 
   // *********
@@ -28,14 +29,6 @@ io.on('connection', function(client){
   // user information needs to get added to the global object. 
   // This is also a convenient spot to add the room and set the 
   // first user as the admin if it doesn't already exist.
-
-
-// maybe todo: create user signin emitted event that sends user object with
-// This is not being currently used
-  // client.on('userSignin', function(user, callback){
-  //   // Update the signin function to actually work 
-  //   userController.signin(user, callback);
-  // });
 
   client.on('instantiateUser', function(user, callback) {
     // check if room already exists, if it doesn't then add it
@@ -50,25 +43,18 @@ io.on('connection', function(client){
     // clients that are in that specific room an easy task.
 
     userController.getUserStats(user.username, function(userData) {
-      console.log('this is the userData ', userData);
-      console.log('wins ', userData.losses);
       // if room user property doesn't exists, create it and add a user to be the admin
-      
       if (!gameData[user.room].users) {
-        
         gameData[user.room].users = {};
         gameData[user.room].users[client.id] = { admin: true, username: user.username, wins: userData.wins, loss: userData.losses };
-        callback(true, 'Admin has been added to the room');
+        callback(true, 'Admin has been added to the room', true);
       } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
         gameData[user.room].users[client.id] = { admin: false, username: user.username, wins: userData.wins, loss: userData.losses };
-        callback(true, 'User has been added to the room');
+        callback(true, 'User has been added to the room', false);
       } else { // error, user probably exists in that room
         callback(false, 'User already exists in this room');
       }
-      console.log(gameData);
-      
     });
-    
   });
 
   // userController.updateUserStats(username, didUserWin, callback)
@@ -117,6 +103,7 @@ http.listen(port, function(){
 });
 
 // TODO: improve this logic and make the movement more interesting
+
 var racerMoves = {};
 
 var generateRacerMoves = function(time, racers) {

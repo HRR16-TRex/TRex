@@ -1,12 +1,12 @@
 <div class="timerView">
-  <input type="text" placeholder="Minutes" name="timerCountMinutes" ng-model="timerCountMinutes">
-  <input type="text" placeholder="Seconds" name="timerCountSeconds" ng-model="timerCountSeconds">
-  <button ng-click="setTimer(timerCountSeconds,timerCountMinutes)">Set Time</button>
+  <input type="text" placeholder="Minutes" name="timerCountMinutes" ng-model="timerCountMinutes" ng-show="isUserAdmin">
+  <input type="text" placeholder="Seconds" name="timerCountSeconds" ng-model="timerCountSeconds" ng-show="isUserAdmin">
+  <button ng-click="setTimer(timerCountSeconds,timerCountMinutes)" ng-show="isUserAdmin">Set Time</button>
   <h2>
     <timer interval="1000" countdown="countdownTime" autostart="false" finish-callback="countdownComplete()">{{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}</timer>
   </h2>
-  <button ng-click="startTimer()">Start Timer</button>
-  <button ng-click="stopTimer()" ng-disabled="!timerRunning">Stop Timer</button>
+  <button ng-click="startTimer()" ng-show="isUserAdmin">Start Timer</button>
+  <button ng-click="stopTimer()" ng-disabled="!timerRunning" ng-show="isUserAdmin">Stop Timer</button>
 </div>
 
 <div class="racerColumn">
@@ -30,8 +30,6 @@
   <div class="trex one"></div>
   <div class="trex two"></div>
   <div class="trex three"></div>
-  <!-- <div class="trex four"></div> -->
-  <!-- <div class="trex five"></div> -->
 </div>
 
 <div class="chatWindow">
