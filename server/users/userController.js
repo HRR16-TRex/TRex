@@ -1,37 +1,21 @@
 var User = require('./userModel.js');
-var jwt = require('jwt-simple');
 
 module.exports = {
-
-	// hybrid signin/signup
-	signin: function(userObj, cb) {
-    // Check the input here
-		console.log('this is the dfsdf', userObj);
-		var username = userObj.username;
-		console.log(username);
-    
-    User.findOne({username: username}).exec(function(err, foundUser) {
-      if (!foundUser) {
-        User.create({username: username});
-      } else {
-        return foundUser;
-      }
-    });
-	},
-
   getUserStats: function(username, callback) {	
   	User.findOne({username: username}).exec(function(err, foundUser) {
   		if (foundUser) {
+        console.log('found the user');
   			callback(foundUser);
   		} else {
-  			console.log('Error: Did not find user stats');
+        console.log('did not find the user');
+  			var user = {username: username, wins: 0, losses: 0};
+        User.create(user);
+        callback(user);
   		}
   	});
   },
   
   updateUserStats: function(username, didUserWin, callback) {
-    // expecting didUserWin to be true if won and false if not
-    // check to ensure it is properly incrementing
     if (didUserWin) {
       User.update({username: username}, {$inc: {wins: 1}}, function (err, data) {
         if (err) {

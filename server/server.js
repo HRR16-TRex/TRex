@@ -30,47 +30,28 @@ io.on('connection', function(client){
   // first user as the admin if it doesn't already exist.
 
   client.on('instantiateUser', function(user, callback) {
-    // check if room already exists, if it doesn't then add it
-    console.log('this is the user ', user);
-
+    
+    // Check to see if the room already exists
     if (!gameData[user.room]) {
+      // If it doesn't exist on the server, then create a room object for it
       gameData[user.room] = {};
     }
-
-    // ********
-    // When users are added, the username is stored as the key
-    // for that user. This makes emitting room data back to the
-    // clients that are in that specific room an easy task since
-    // we can access the clientId of that user
-    if (!gameData[user.room].users) {
+    
+    userController.getUserStats(user.username, function(userData) {
+      // if room user property doesn't exists, create it and add a user to be the admin
+      if (!gameData[user.room].users) {
         gameData[user.room].users = {};
-        gameData[user.room].users[user.username] = { admin: true, username: user.username, clientId: client.id, wins: 0, loss: 0, racerChoice: null };
+        gameData[user.room].users[user.username] = { admin: true, username: user.username, clientId: client.id, wins: userData.wins, loss: userData.losses, racerChoice: null };
         sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
-        console.log('admin added', gameData[user.room].users)
         callback(true, 'Admin has been added to the room', true);
       } else if (!gameData[user.room].users[user.username]) { // add the user if it doesn't exist in that room
-        gameData[user.room].users[user.username] = { admin: false, username: user.username, clientId: client.id, wins: 0, loss: 0, racerChoice: null };
+        gameData[user.room].users[user.username] = { admin: false, username: user.username, clientId: client.id, wins: userData.wins, loss: userData.losses, racerChoice: null };
         sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
         callback(true, 'User has been added to the room', false);
       } else { // error, user probably exists in that room
         callback(false, 'User already exists in this room');
       }
-
-    // userController.getUserStats(user.username, function(userData) {
-    //   // if room user property doesn't exists, create it and add a user to be the admin
-    //   if (!gameData[user.room].users) {
-    //     gameData[user.room].users = {};
-    //     gameData[user.room].users[user.username] = { admin: true, username: user.username, clientId: client.id, wins: userData.wins, loss: userData.losses, racerChoice: null };
-    //     sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
-    //     callback(true, 'Admin has been added to the room', true);
-    //   } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
-    //     gameData[user.room].users[user.username] = { admin: false, username: user.username, clientId: client.id, wins: userData.wins, loss: userData.losses, racerChoice: null };
-    //     sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
-    //     callback(true, 'User has been added to the room', false);
-    //   } else { // error, user probably exists in that room
-    //     callback(false, 'User already exists in this room');
-    //   }
-    // });
+    });
 
   });
 
@@ -78,18 +59,25 @@ io.on('connection', function(client){
   client.on('setUserBet', function(betInfo, callback) {
     var userClientId = gameData[betInfo.room].users[betInfo.user].clientId;
     gameData[betInfo.room].users[betInfo.user].racerChoice = betInfo.racerChoice;
+    
     sendDataToClients(gameData[betInfo.room].users, 'retrieveUserData', gameData[betInfo.room], 'A client has placed a bet.');
+
     callback(true, 'Server has stored your bet.');
+
+    var isUserRight;
+    betInfo.racerChoice === gameData[betInfo.room].winner ? isUserRight = true : isUserRight = false;
+    userController.updateUserStats(betInfo.user, isUserRight);
   });
 
   // Update messages for the room
   client.on('updateMessages', function(messageInfo, callback) {
+    console.log(messageInfo);
     if (!gameData[messageInfo.room].messages) {
       gameData[messageInfo.room].messages = [];
     }
     gameData[messageInfo.room].messages.push(messageInfo);
     sendDataToClients(gameData[messageInfo.room].users, 'updateMessageData', gameData[messageInfo.room].messages, 'A message has been added to the server.');
-    console.log(gameData[messageInfo.room].messages)
+    console.log(gameData[messageInfo.room].messages);
   });
 
   // *********
@@ -142,13 +130,13 @@ var getUser = function(room, username) {
     }
   }
   return clientId;
-}
+};
 
 var sendDataToClients = function(users, eventName, data, msg) {
   for (var user in users) {
     io.to(users[user].clientId).emit(eventName, data, msg);
   }
-}
+};
 
 // TODO: improve this logic and make the movement more interesting
 
@@ -167,7 +155,7 @@ var generateRacerMoves = function(time, racers) {
 
   var winner = racers[Math.floor(Math.random() * racers.length)];
 
-  for (racer in moves) {
+  for (var racer in moves) {
     if (racer !== winner) {
       var randomMoves = Math.floor(Math.random() * 20), rnd;
       for (var i = 0; i < randomMoves; i++) {
@@ -178,4 +166,4 @@ var generateRacerMoves = function(time, racers) {
   }
 
   return { moves:moves, winner:winner };
-}
+};
