@@ -175,7 +175,6 @@ angular.module("app.race", ['ngRoute'])
       // This gets triggered by the server whenever
       // the admin user clicks 'start timer'
       var animateMovement = function(racer, moves) {
-        delete moves.winner;
         moves.forEach(function(move) {
           $('.' + racer).animate({'left':'+=' + move.distance + '%'}, {
             duration: move.time
