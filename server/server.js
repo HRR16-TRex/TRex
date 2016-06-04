@@ -9,7 +9,6 @@ var io = require('socket.io')(http);
 
 var db = require('./config/config.js');
 var userController = require('./users/userController.js');
-var roomController = require('./rooms/roomController.js');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
