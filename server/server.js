@@ -30,10 +30,6 @@ io.on('connection', function(client){
   // first user as the admin if it doesn't already exist.
 
   client.on('instantiateUser', function(user, callback) {
-    // check if room already exists, if it doesn't then add it
-    
-    // console.log('this is the user ', user);
-    // console.log('all the users ', userController.getAll());
     
     // Check to see if the room already exists
     if (!gameData[user.room]) {
