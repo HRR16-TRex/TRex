@@ -194,3 +194,53 @@ angular.module("app.race", ['ngRoute'])
       emit: emit
     };
   });
+      // var socket = io.connect('http://url.herokuapp.com:80');
+      var socket = io.connect('http://localhost:3030');
+
+      // hacky workaround for socket.io and an issue where an emit is executed twice
+      var isAnimating = false;
+
+      socket.on('test', function(message) {
+        console.log(message);
+      });
+
+      socket.on('setClock', function(time) {
+        console.log('clock set');
+      });
+
+      socket.on('startCountdown', function() {
+        console.log('countdown started');
+      })
+
+      socket.on('animateRacers', function(racerMoves) {
+        if (!isAnimating) {
+          for (var racer in racerMoves) {
+            animateMovement(racer, racerMoves[racer]);
+          }
+          isAnimating = true;
+        }
+      });
+
+
+socket.on('setClock', function(time) {
+  console.log('clock set');
+});
+
+socket.on('startCountdown', function() {
+  console.log('countdown started');
+});
+
+      function animateMovement(racer, moves) {
+        moves.forEach(function(move) {
+          $('.' + racer).animate({'left':'+=' + move.distance + '%'}, {
+            duration: move.time
+          });
+        });
+      }
+  })
+
+
+
+// maybe a better way we can make this part of the controller
+// so we could access $scope and its variables easily
+

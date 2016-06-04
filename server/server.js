@@ -29,14 +29,6 @@ io.on('connection', function(client){
   // This is also a convenient spot to add the room and set the 
   // first user as the admin if it doesn't already exist.
 
-
-// maybe todo: create user signin emitted event that sends user object with
-// This is not being currently used
-  // client.on('userSignin', function(user, callback){
-  //   // Update the signin function to actually work 
-  //   userController.signin(user, callback);
-  // });
-
   client.on('instantiateUser', function(user, callback) {
     // check if room already exists, if it doesn't then add it
     console.log('this is the user ', user);
@@ -117,6 +109,7 @@ http.listen(port, function(){
 });
 
 // TODO: improve this logic and make the movement more interesting
+
 var racerMoves = {};
 
 var generateRacerMoves = function(time, racers) {
