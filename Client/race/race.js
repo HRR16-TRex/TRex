@@ -161,6 +161,10 @@ angular.module("app.race", ['ngRoute'])
 
         // foreach updated user from the server
         for (var user in users) {
+          // add admin user
+          if (users[user].admin && users[user].username === $scope.username) {
+            $scope.isUserAdmin = true;
+          }
           // check if user is a part of connectedUsers already
           if (!connectedUsers[user]) {
             $scope.connectedUsers.push(users[user]);
