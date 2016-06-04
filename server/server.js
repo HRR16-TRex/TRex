@@ -72,7 +72,8 @@ io.on('connection', function(client){
     
   });
 
-  // 
+  // userController.updateUserStats(username, didUserWin, callback)
+  // Utilize this function for the socket event of updating who won and lost
 
 
   // *********
