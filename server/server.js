@@ -66,7 +66,6 @@ io.on('connection', function(client){
     
     sendDataToClients(gameData[betInfo.room].users, 'retrieveUserData', gameData[betInfo.room], 'A client has placed a bet.');
 
-
     callback(true, 'Server has stored your bet.');
 
     var isUserRight;
