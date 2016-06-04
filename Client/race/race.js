@@ -162,7 +162,7 @@ angular.module("app.race", ['ngRoute'])
         $scope.racerChosen = true;
       };
       
-      $scope.userList = [{user: 'zhuts', wins: 1, loss: 100, racerChoice: 'red'}, {user:'bdpellet', wins: 1, loss: 100, racerChoice: 'blue'}, {user:'summertime', wins: 1000, loss: 0, racerChoice: 'green'}];
+      $scope.userList = [{user: 'zhuts', W: 1, L: 100, racerChoice: 'red'}, {user:'bdpellet', W: 1, L: 100, racerChoice: 'blue'}, {user:'summertime', W: 100, L: 0, racerChoice: 'green'}];
       
       $scope.messageList = [{user: 'zhuts', message: 'my racer is the best!'}, {user: 'bdpellet', message: 'go blue go!'}];
   })
@@ -199,51 +199,4 @@ angular.module("app.race", ['ngRoute'])
       emit: emit
     };
   });
-      // var socket = io.connect('http://url.herokuapp.com:80');
-      var socket = io.connect('http://localhost:3030');
-
-      // hacky workaround for socket.io and an issue where an emit is executed twice
-      var isAnimating = false;
-
-      socket.on('test', function(message) {
-        console.log(message);
-      });
-
-      socket.on('setClock', function(time) {
-        console.log('clock set');
-      });
-
-      socket.on('startCountdown', function() {
-        console.log('countdown started');
-      })
-
-      socket.on('animateRacers', function(racerMoves) {
-        if (!isAnimating) {
-          for (var racer in racerMoves) {
-            animateMovement(racer, racerMoves[racer]);
-          }
-          isAnimating = true;
-        }
-      });
-
-
-socket.on('setClock', function(time) {
-  console.log('clock set');
-});
-
-socket.on('startCountdown', function() {
-  console.log('countdown started');
-});
-
-      function animateMovement(racer, moves) {
-        moves.forEach(function(move) {
-          $('.' + racer).animate({'left':'+=' + move.distance + '%'}, {
-            duration: move.time
-          });
-        });
-      }
-
-
-// maybe a better way we can make this part of the controller
-// so we could access $scope and its variables easily
-
+      
