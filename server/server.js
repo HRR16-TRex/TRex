@@ -44,7 +44,7 @@ io.on('connection', function(client){
         gameData[user.room].users[user.username] = { admin: true, username: user.username, clientId: client.id, wins: userData.wins, loss: userData.losses, racerChoice: null };
         sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
         callback(true, 'Admin has been added to the room', true);
-      } else if (!gameData[user.room].users[client.id]) { // add the user if it doesn't exist in that room
+      } else if (!gameData[user.room].users[user.username]) { // add the user if it doesn't exist in that room
         gameData[user.room].users[user.username] = { admin: false, username: user.username, clientId: client.id, wins: userData.wins, loss: userData.losses, racerChoice: null };
         sendDataToClients(gameData[user.room].users, 'retrieveUserData', gameData[user.room], 'user data loaded for room' + user.room);
         callback(true, 'User has been added to the room', false);
