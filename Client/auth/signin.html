@@ -1,9 +1,16 @@
 <div id='signInView'>
-  <h1>Signin</h1>
-  <div>create/join a race</div><br>
-  <form ng-submit="ctrlSignIn()">
-    <input type="text" name="racename" ng-model="racename" placeholder="race name"/>
-    <input type="text" name="username" ng-model="username" placeholder="username"/>
-    <input type="submit" name="submit"/>
-  </form>
+  <div class="trexLeft"></div>
+  <div class="signinText">
+    <div id="title">The TRex Race Timer</div>
+    <p id="signinWords">Wish you could jazz up that timer? Well now you can with The TRex Race Timer. Watch the time pass as the excitement grows. Pick a racer and see who ends up winning!</p>
+    <div>create or join a race</div><br>
+    <form ng-submit="ctrlSignIn()">
+      <input type="text" name="racename" ng-model="racename" class="inputBox" placeholder="race name"/>
+      <input type="text" name="username" ng-model="username" class="inputBox" placeholder="username"/>
+      <input type="submit" name="submit" class="submitButton"/>
+    </form>
+    <p id="signinWords">"I was able to get all my students to work quietly as The TRex Race Timer made our daily writing assignment exciting." - Anonymous Teacher
+    </p>
+  </div>
+  <div class="trexRight"></div>
 </div>
