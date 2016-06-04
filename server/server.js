@@ -58,12 +58,22 @@ io.on('connection', function(client){
     });
   });
 
+  // Add bet information from the client
   client.on('setUserBet', function(betInfo, callback) {
     var userClientId = gameData[betInfo.room].users[betInfo.user].clientId;
-    //getUser(betInfo.room, betInfo.user);
     gameData[betInfo.room].users[betInfo.user].racerChoice = betInfo.racerChoice;
     sendDataToClients(gameData[betInfo.room].users, 'retrieveRoomData', gameData[betInfo.room], 'A client has placed a bet.');
     callback(true, 'Server has stored your bet.');
+  });
+
+  // Update messages for the room
+  client.on('updateMessages', function(messageInfo, callback) {
+    if (!gameData[messageInfo.room].messages) {
+      gameData[messageInfo.room].messages = [];
+    }
+    gameData[messageInfo.room].messages.push(messageInfo);
+    sendDataToClients(gameData[messageInfo.room].users, 'updateMessageData', gameData[messageInfo.room].messages, 'A message has been added to the server.');
+    console.log(gameData[messageInfo.room].messages)
   });
 
   // *********

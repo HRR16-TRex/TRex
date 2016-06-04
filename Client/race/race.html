@@ -34,7 +34,7 @@
 
 <div class="chatWindow">
   <div class="chatRoom">
-    <p ng-repeat="message in messageList">{{message.user}}:  {{message.message}}</p>
+    <p ng-repeat="message in messages">{{message.user}}:  {{message.message}}</p>
   </div>
   <div class="chatSubmit">
     <form ng-submit="sendChatMessage(chatMessage)">
