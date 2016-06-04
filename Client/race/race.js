@@ -228,9 +228,11 @@ angular.module("app.race", ['ngRoute'])
   // callback when executing socket methods
 
   .factory('socket', function ($rootScope) {
-    // change the url to heroku-app url and it'll use 80 as the port?
-    // will process.env.PORT work here?
-    var socket = io.connect('http://localhost:3030');
+    // For development testing need to set port to 3030 and use localhost
+    // var socket = io.connect('http://localhost:3030');
+    
+    var port = process.env.PORT || 80;
+    var socket = io.connect('https://trex-timer.herokuapp.com:'+ port);
 
     var on = function (eventName, callback) {
       socket.on(eventName, function () {  
