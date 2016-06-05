@@ -1,103 +1,125 @@
 angular.module("app.race", ['ngRoute'])
   
   .controller("raceController", function($scope, $timeout, socket, $routeParams){
+      // ********** Initialize Parameters **********
+      // The countdownTime is set to 1 because if it is set to 0 then it gives a "falsy" value and will not function properly
       $scope.countdownTime = 1;
       $scope.timerRunning = true;
-
+      
+      // The room and username are pulled from the web address
       $scope.room = $routeParams.roomId;
       $scope.username = $routeParams.userId;
 
-      // room data, populated from the server when time gets set by admin
+      // The overall room data, populated from the server when time gets set by admin user
       $scope.connectedUsers = [];
       $scope.racerMoves = {};
       $scope.messages = [];
+      
+      // Provides the options for the different racers in the drop down
+      $scope.racerChoices=['red', 'blue', 'green'];
 
-      // test server connection
+
+      // ********** Server/Socket Interactions **********
+      // Test server connection
       socket.on('test', function(msg) {
         console.log(msg);
       });
 
-      // instantiate user on the server when connected to a room
-      // 2nd callback parameter is checking if admin or not. possibly could be refactored?
+      // Instantiate user on the server when connected to a room
       socket.emit('instantiateUser', {username: $scope.username, room: $scope.room }, function(result, msg, isAdmin) {
         $scope.isUserAdmin = isAdmin;
         console.log(logMsg(result, msg));
       });
 
-      // get room data generated on the server for this room
+      // To get room data generated on the server for this room
       socket.on('retrieveRoomData', function(data, msg) {
-        // populate controller's scope data
-        console.log(data);
+        // Update current user's controller scope data
         $scope.countdownTime = data.time;
         $scope.racerMoves = data.racerMoves;
         addOrUpdateUsers(data.users);
-
-        console.log($scope.connectedUsers);
-        // update timer directive
-        $scope.$broadcast('timer-set-countdown-seconds', $scope.countdownTime);
         
+        // Update timer directive with the time set by the admin
+        $scope.$broadcast('timer-set-countdown-seconds', $scope.countdownTime);
         console.log('SUCCESS: ' + msg);
       });
 
-      // whenever a user is instantiated on the server, add the updated user to $scope.connectedUsers
+      // Whenever a user is instantiated on the server, add the updated user to $scope.connectedUsers
       socket.on('retrieveUserData', function(data, msg) {
-        // console.log('$scope.connectedUsers ', $scope.connectedUsers);
         addOrUpdateUsers(data.users);
-        // $scope.connectedUsers = [data.users];
         console.log('User data loaded: ' + msg);
       });
 
-      // when admin starts race, all clients get notified to start timer and animate racers
+      // When admin starts race, all clients get notified to start timer and animate racers
       socket.on('startRace', function(status, msg) {
-        // let the timer directive know the client is starting
+        // Let the timer directive know the client is starting
         $scope.$broadcast('timer-start');
         $scope.timerRunning = true;
-        // animate background
+        
+        // Animate background
         $('#raceView').css({'animation':'backgroundScroll 15s linear infinite'});
-        // iterate over all the racers the server sent us
+        
+        // Iterate over all the racers the server sent us
         for (var racer in $scope.racerMoves) {
-          // animate movement for each racer
+          // Animate movement for each racer
           animateMovement(racer, $scope.racerMoves[racer]);
         }
-
         console.log('SUCCESS: ' + msg);
       });
-
+      
       socket.on('updateMessageData', function(messages, msg) {
         $scope.messages = messages;
         console.log('SUCCESS: ' + msg);
       });
-
-      // This gets triggered when a bet is selected
-      // updates the server with the bet information
-      var betPlaced = function(betInfo) {
-        socket.emit('setUserBet', betInfo, function(result, msg) {
-          console.log(logMsg(result, msg));
-        });
-      };
-
+      
+      
+      // ********** Utility Functions **********
       var sendMessage = function(messageData) {
         socket.emit('updateMessages', messageData, function(result, msg) {
           console.log(logMsg(result, msg));
         });
       };
 
-      // Admin set the time, send room name and time to 
-      // the server.. this gets emitted back from the server 
-      // to all clients through the event 'retrieveRoomData'
+      // When a racer/bet is chosen, this updates the server
+      var betPlaced = function(betInfo) {
+        socket.emit('setUserBet', betInfo, function(result, msg) {
+          console.log(logMsg(result, msg));
+        });
+      };
+
+      // Admin set the time, emitted back from the server to all clients through the event 'retrieveRoomData'
       var setRoomTime = function(roomInfo) {
         socket.emit('setRoomTime', roomInfo, function(result, msg) {
           console.log(logMsg(result, msg));
         });
       };
 
-      // Admin started the race, this information gets
-      // emitted to all clients from the server through
-      // the event 'startRace'
+      // Admin started the race, emitted to all clients with startRace
       var toggleRace = function(race) {
         socket.emit('toggleRace', race, function(result, msg) {
           console.log(logMsg(result, msg));
         });
+      };
+      
+      // Server user object is not the same as connectedUsers, so this gets updated slightly differently
+      var addOrUpdateUsers = function(users) {
+        var connectedUsers = {};
+
+        // Make connectedUsers an object with users and indexes
+        for (var i = 0; i < $scope.connectedUsers.length; i++) {
+          connectedUsers[$scope.connectedUsers[i].username] = $scope.connectedUsers[i];
+          connectedUsers[$scope.connectedUsers[i].username].index = i;
+        }
+
+        // Iterate over each updated user from the server
+        for (var user in users) {
+          // check if user is a part of connectedUsers already
+          if (!connectedUsers[user]) {
+            $scope.connectedUsers.push(users[user]);
+          } else { // else the user exists so update its record 
+            $scope.connectedUsers[connectedUsers[user].index].racerChoice = users[user].racerChoice;
+            // .. other properties you may want to update
+          }
+        }
       };
 
       // utility function for logging messages from the server
@@ -106,10 +128,9 @@ angular.module("app.race", ['ngRoute'])
         return 'SUCCESS: ' + msg;
       };
 
-      // The admin user for this room should be
-      // the only one seeing the controls with this
-      // functionality
 
+      // ********** ADMIN User Function **********
+      // Only the admin (the user who created the race) should have access to these
       $scope.setTimer = function (seconds, minutes) {
         setRoomTime({ room: $scope.room, time: turnToSeconds(seconds, minutes) });
       };
@@ -123,8 +144,9 @@ angular.module("app.race", ['ngRoute'])
         $scope.timerRunning = false;
       };
 
-      // Each client will run this code when the
-      // countdown has reached 0
+
+      // ********** Timer Functionality **********
+      // Each client will run this code when the countdown has reached 0
       $scope.countdownComplete = function () {
         var winner = null;
 
@@ -142,40 +164,17 @@ angular.module("app.race", ['ngRoute'])
       $scope.$on('timer-stopped', function (event, data){
         console.log('Timer Stopped - data = ', data);
       });
-
-      // Server user object is not the same makeup of
-      // connectedUsers. This is why things get broken
-      // out the way they do below.
-      // TODO: more elegant solution, update server code to mimic connectedUsers
-      var addOrUpdateUsers = function(users) {
-        var connectedUsers = {};
-
-        // make connectedUsers an object with users and indexes
-        for (var i = 0; i < $scope.connectedUsers.length; i++) {
-          connectedUsers[$scope.connectedUsers[i].username] = $scope.connectedUsers[i];
-          connectedUsers[$scope.connectedUsers[i].username].index = i;
-        }
-
-        // TODO: this can be cleaned up as well.
-        // ALL the data is being sent to the clients when
-        // certain events get triggered. Ideally you would 
-        // only want to send just the item that was updated
-
-        // foreach updated user from the server
-        for (var user in users) {
-          // check if user is a part of connectedUsers already
-          if (!connectedUsers[user]) {
-            $scope.connectedUsers.push(users[user]);
-          } else { // else the user exists so update its record 
-            $scope.connectedUsers[connectedUsers[user].index].racerChoice = users[user].racerChoice;
-            // .. other properties you may want to update
-          }
-        }
+      
+      // Simple function for our timer directive since it expects the input to be in seconds
+      var turnToSeconds = function (seconds, minutes) {
+        seconds = seconds || 0;
+        minutes = minutes || 0;
+        return Number(seconds)+Number((minutes*60));
       };
 
-      // Handles animating movement for each racer.
-      // This gets triggered by the server whenever
-      // the admin user clicks 'start timer'
+      
+      // ********** Animation/Front-end Interaction **********
+      // Handles animating movement for each racer triggered by admin clicking start timer
       var animateMovement = function(racer, moves) {
         moves.forEach(function(move) {
           $('.' + racer).animate({'left':'+=' + move.distance + '%'}, {
@@ -183,30 +182,19 @@ angular.module("app.race", ['ngRoute'])
           });
         });
       };
-
-      // Utility function for our timer directive.
-      var turnToSeconds = function (seconds, minutes) {
-        seconds = seconds || 0;
-        minutes = minutes || 0;
-        return Number(seconds)+Number((minutes*60));
-      };
-
-      // Provides the options for the different racers in the drop down
-      $scope.racerChoices=['red', 'blue', 'green'];
       
+      // To send a message from the user in the proper format
       $scope.sendChatMessage= function(message) {
+        // Define the structure of the userMessage before sending it
         var userMessage = {
           user: $scope.username,
           room: $scope.room,
           message: message
         };
-        
-        // $scope.messageList.push(userMessage);
         sendMessage(userMessage);
       };
       
-      // 'Choose' button trigger, sets the chosen racer
-      // and lets the server know what racer this user selected.
+      // 'Choose' button trigger, sets the chosen racer and lets the server know what racer this user selected.
       $scope.chooseRacer = function(racer) {
         var user = {
           user: $scope.username,
@@ -219,22 +207,15 @@ angular.module("app.race", ['ngRoute'])
         // send data to server
         betPlaced(user);
       };
-
-      // $scope.messageList = [{user: 'zhuts', message: 'my racer is the best!'}, {user: 'bdpellet', message: 'go blue go!'}];
   })
 
-  // Factory for using socket.io in racer controller
-  // error handling can be applied passing in a
-  // callback when executing socket methods
-
+  // Factory for using socket.io in racer controller.
   .factory('socket', function ($rootScope) {
-    // For development testing need to set port to 3030 and use localhost
-    // var socket = io.connect('http://localhost:3030');
-  
-    // var socket = io.connect('https://trex-timer.herokuapp.com:80/');
-    // var socket = io.connect(window.location.hostname);
-    var socket = io.connect('https://' + window.location.hostname + ":" + location.port);
+    // For development testing need to set it to use 'http://' since localhost uses http
+    // For production, can use either http or https but the web address will have to match it
+    var socket = io.connect('http://' + window.location.hostname + ":" + location.port);
     
+    // Error handling can be applied passing in a callback when executing socket methods on or emit
     var on = function (eventName, callback) {
       socket.on(eventName, function () {  
         var args = arguments;
