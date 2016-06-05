@@ -233,7 +233,7 @@ angular.module("app.race", ['ngRoute'])
   
     // var socket = io.connect('https://trex-timer.herokuapp.com:80/');
     // var socket = io.connect(window.location.hostname);
-    var socket = io.connect(window.location.hostname);
+    var socket = io();
     
     var on = function (eventName, callback) {
       socket.on(eventName, function () {  
