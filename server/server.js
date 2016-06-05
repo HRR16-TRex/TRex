@@ -10,8 +10,8 @@ var io = require('socket.io')(http);
 // io.set('transports', ['xhr-polling']);
 // io.set('polling duration', 10);
 
-var db = require('./config/config.js');
-var userController = require('./users/userController.js');
+var db = require('./database/config/config.js');
+var userController = require('./database/users/userController.js');
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
