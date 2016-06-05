@@ -153,7 +153,7 @@ var generateRacerMoves = function(time, racers) {
   for (var racer in moves) {
     if (racer !== winner) {
       var randomMoves = Math.floor(Math.random() * 20), rnd;
-      for (var i = 0; i < randomMoves; i++) {
+      for (var k = 0; k < randomMoves; k++) {
         rnd = Math.floor(Math.random() * moves[racer].length);
         moves[racer][rnd].distance = 0;
       }
