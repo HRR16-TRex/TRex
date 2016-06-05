@@ -231,8 +231,8 @@ angular.module("app.race", ['ngRoute'])
     // For development testing need to set port to 3030 and use localhost
     // var socket = io.connect('http://localhost:3030');
   
-    var socket = io.connect('https://trex-timer.herokuapp.com:80');
-
+    // var socket = io.connect('https://trex-timer.herokuapp.com:80');
+    var socket = io.connect();
     var on = function (eventName, callback) {
       socket.on(eventName, function () {  
         var args = arguments;
