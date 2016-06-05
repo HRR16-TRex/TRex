@@ -7,7 +7,7 @@ var app = express();
 var http = require('http').createServer(app);
 var io = require('socket.io')(http);
 
-var db = require('./config/config.js');
+// var db = require('./config/config.js');
 var userController = require('./users/userController.js');
 
 app.use(morgan('dev'));

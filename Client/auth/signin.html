@@ -1,4 +1,29 @@
 <div id='signInView'>
+
+  <h1>TRex Racer</h1>
+
+  <div class="icon">
+    <img src="../assets/game-icon.png"></img>
+  </div>
+  
+  <form ng-submit="ctrlSignIn()">
+    <div>
+      <span>Race:</span>
+      <input type="text" name="racename" ng-model="racename" class="inputBox" placeholder="race name"/>
+    </div>
+    <div>
+      <span>Username:</span>
+      <input type="text" name="username" ng-model="username" class="inputBox" placeholder="username"/>
+    </div>
+    <div>
+      <input type="submit" name="submit" value="Join Race" class="submitButton"/>
+    </div>
+  </form>
+</div>
+
+
+
+<!-- <div id='signInView'>
   <div class="trexLeft"></div>
   <div class="signinText">
     <div id="title">The TRex Race Timer</div>
@@ -13,4 +38,4 @@
     </p>
   </div>
   <div class="trexRight"></div>
-</div>
+</div> -->

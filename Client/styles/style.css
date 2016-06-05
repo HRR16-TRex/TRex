@@ -4,97 +4,72 @@ html {
 
 body {
   margin: 0;
-  height: 100%;
+  /*height: 100%;*/
+  font-family: 'Montserrat', sans-serif;
 }
 
 #signInView {
-  background-color: black;
-  min-height: 100%;
-  height: 100%;
-  width: 100%;
+  background-color: #899fc8;
+  margin: 0 auto;
+  margin-top: 150px;
+  border-radius: 20px;
+  width: 500px;
+  height: 600px;
+  padding-top: 20px;
 }
 
-.signinText{
-  color: white;
-  position: absolute;
-  font-size: 40px;
-  left: 28%;
-  right: 25%;
+#signInView h1 {
+  text-align: center;
 }
 
-#title {
-  font-size: 60px;
+#signInView .icon {
+  margin: 0 auto;
+  width: 245px;
+  height: 218px;
+  background: url('../assets/game-icon-bg.png');
+  animation: iconBackgroundScroll 5s linear infinite;
 }
 
-.trexLeft {
-  background-image: url(../assets/green-t-rex-background.jpg);
-  float: left;
-  height: 100%;
-  width: 15%;
-}
-
-.trexRight {
-  background-image: url(../assets/green-t-rex-background.jpg);
-  float: right;
-  height: 100%;
-  width: 15%;
-}
-
-#signinWords {
-  font-size: 20px;
+#signInView form {
+  margin: 0 auto;
+  width: 265px;
 }
 
 .submitButton {
-  position: relative;
-  padding: 10px 40px;
-  margin: 0px 10px 10px 0px;
-  /*float: left;*/
+  padding: 10px 20px;
   border-radius: 10px;
-  font-family: 'Helvetica', cursive;
-  font-size: 25px;
+  font-size: 20px;
   color: #FFF;
   text-decoration: none;  
-  background-color: #3498DB;
-  border-bottom: 5px solid #2980B9;
-  text-shadow: 0px -2px #2980B9;
-  /* Animation */
+  background-color: #684580;
+  text-shadow: 0px -1px #2980B9;
   transition: all 0.1s;
   -webkit-transition: all 0.1s;
 }
 
-.submitButton:hover, 
-.submitButton:focus {
-    text-decoration: none;
-    color: #fff;
-}
-
 .submitButton:active {
-    transform: translate(0px,5px);
-    -webkit-transform: translate(0px,5px);
-    border-bottom: 1px solid;
+    transform: translate(0px,2px);
+    -webkit-transform: translate(0px,2px);
+    border-bottom: #000 1px solid;
 }
 
 .inputBox {
-  background: #D3D3D3;
-  background: -moz-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #D3D3D3), color-stop(38%, #D9D9D9), color-stop(82%, #E5E5E5), color-stop(100%, #E7E7E7));
-  background: -webkit-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
-  background: -o-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
-  background: -ms-linear-gradient(top, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
-  background: linear-gradient(to bottom, #D3D3D3 0%, #D9D9D9 38%, #E5E5E5 82%, #E7E7E7 100%);
-  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#d3d3d3', endColorstr='#e7e7e7', GradientType=0 );
+  background: #fff;
   display: block;
   padding: 0px 10px;
   color: black;
-  font-size: .8em;
   font-weight: bold;
   text-shadow: 1px 1px 1px #FFF;
   border: 1px solid rgba(16, 103, 133, 0.6);
-  box-shadow: 0 0 3px rgba(255, 255, 255, 0.5), inset 0 1px 4px rgba(0, 0, 0, 0.2);
   border-radius: 3px;
-  outline: 0;
-  width: 270px;
+  height: 35px;
+  width: 250px;
 }
+
+#signInView div {
+  margin-top: 20px;
+}
+
 
 .timerView {
   width: 50%;
@@ -137,6 +112,11 @@ body {
   to {background-position: -1200px 0;}
 }
 
+@keyframes iconBackgroundScroll {
+  from {background-position: 0 0;}
+  to {background-position: -250px 0;}
+}
+
 .red {
   background-image: url(../assets/trex-running-r.gif);
 }
@@ -150,15 +130,3 @@ body {
   background-image: url(../assets/trex-running-g.gif);
   top: 33%;
 }
-
-/*.four {
-  top: 45%;
-}
-
-.five {
-  top: 550px;
-}
-
-.six {
-  top: 600px;
-}*/
