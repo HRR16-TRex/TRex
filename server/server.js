@@ -5,7 +5,10 @@ var bodyParser = require('body-parser');
 var app = express();
 
 var http = require('http').createServer(app);
+
 var io = require('socket.io')(http);
+io.set('transports', ['xhr-polling']);
+io.set('polling duration', 10);
 
 // var db = require('./config/config.js');
 var userController = require('./users/userController.js');
