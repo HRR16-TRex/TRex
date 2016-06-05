@@ -30,10 +30,10 @@ module.exports = function (config) {
       // our app code
       'Client/app/**/*.js',
       'Client/auth/**/*.js',
-      'Client/services/**/*.js',
+      'Client/race/**/*.js',
 
       // our spec files - in order of the README
-      'specs/Client/test.js'
+      'specs/client/test.js'
     ],
     
     // web server port

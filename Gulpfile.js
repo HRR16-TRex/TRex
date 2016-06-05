@@ -9,15 +9,12 @@ var KarmaServer = require('karma').Server;
 // the paths to our app files
 var paths = {
   // all our client app js files, not including 3rd party js files
-  scripts: ['Client/app/**/*.js'],
-  html: ['Client/app/**/*.html', 'client/index.html'],
+  scripts: ['Client/app/**/*.js', 'Client/auth/**/*.js', 'Client/race/**/*.js'],
+  html: ['Client/auth/**/*.html', 'Client/race/**/*.html', 'Client/index.html'],
   styles: ['Client/styles/style.css'],
   test: ['specs/**/*.js']
 };
 
-// any changes made to your
-// client side code will automagically refresh your page
-// with the new changes
 gulp.task('start', ['serve'], function () {
   sync({
     notify: true,
