@@ -6,6 +6,7 @@ angular.module('app.auth', [])
   $scope.racename = '';
 
   $scope.ctrlSignIn = function () {
+    // Upon submit of the signin form redirect to raceView using the racename and username
     $location.path('/raceView/' + $scope.racename + '/' + $scope.username);
   };
 
