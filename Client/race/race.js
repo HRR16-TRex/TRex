@@ -61,7 +61,7 @@ angular.module("app.race", ['ngRoute'])
         }
 
         console.log('SUCCESS: ' + msg);
-      })
+      });
 
       socket.on('updateMessageData', function(messages, msg) {
         $scope.messages = messages;
@@ -74,13 +74,13 @@ angular.module("app.race", ['ngRoute'])
         socket.emit('setUserBet', betInfo, function(result, msg) {
           console.log(logMsg(result, msg));
         });
-      }
+      };
 
       var sendMessage = function(messageData) {
         socket.emit('updateMessages', messageData, function(result, msg) {
           console.log(logMsg(result, msg));
         });
-      }
+      };
 
       // Admin set the time, send room name and time to 
       // the server.. this gets emitted back from the server 
@@ -89,7 +89,7 @@ angular.module("app.race", ['ngRoute'])
         socket.emit('setRoomTime', roomInfo, function(result, msg) {
           console.log(logMsg(result, msg));
         });
-      }
+      };
 
       // Admin started the race, this information gets
       // emitted to all clients from the server through
@@ -98,13 +98,13 @@ angular.module("app.race", ['ngRoute'])
         socket.emit('toggleRace', race, function(result, msg) {
           console.log(logMsg(result, msg));
         });
-      }
+      };
 
       // utility function for logging messages from the server
       var logMsg = function(result, msg) {
         if (!result) { return 'ERROR: ' + msg; }
         return 'SUCCESS: ' + msg;
-      }
+      };
 
       // The admin user for this room should be
       // the only one seeing the controls with this
@@ -171,7 +171,7 @@ angular.module("app.race", ['ngRoute'])
             // .. other properties you may want to update
           }
         }
-      }
+      };
 
       // Handles animating movement for each racer.
       // This gets triggered by the server whenever
@@ -182,7 +182,7 @@ angular.module("app.race", ['ngRoute'])
             duration: move.time
           });
         });
-      }
+      };
 
       // Utility function for our timer directive.
       var turnToSeconds = function (seconds, minutes) {
@@ -231,8 +231,10 @@ angular.module("app.race", ['ngRoute'])
     // For development testing need to set port to 3030 and use localhost
     // var socket = io.connect('http://localhost:3030');
   
-    var socket = io.connect('https://trex-timer.herokuapp.com:80');
-
+    // var socket = io.connect('https://trex-timer.herokuapp.com:80/');
+    // var socket = io.connect(window.location.hostname);
+    var socket = io.connect('https://' + window.location.hostname + ":" + location.port);
+    
     var on = function (eventName, callback) {
       socket.on(eventName, function () {  
         var args = arguments;

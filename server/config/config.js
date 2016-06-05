@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoURI = process.env.CUSTOMCONNSTR_MONGOOLAB_URI ||'mongodb://localhost/trextimerdb';
+mongoURI = process.env.MONGODB_URI ||'mongodb://localhost/trextimerdb';
 
 mongoose.connect(mongoURI);
 
