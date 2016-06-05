@@ -7,10 +7,10 @@ var app = express();
 var http = require('http').createServer(app);
 
 var io = require('socket.io')(http);
-io.set('transports', ['xhr-polling']);
-io.set('polling duration', 10);
+// io.set('transports', ['xhr-polling']);
+// io.set('polling duration', 10);
 
-// var db = require('./config/config.js');
+var db = require('./config/config.js');
 var userController = require('./users/userController.js');
 
 app.use(morgan('dev'));
@@ -33,7 +33,6 @@ io.on('connection', function(client){
   // first user as the admin if it doesn't already exist.
 
   client.on('instantiateUser', function(user, callback) {
-    
     // Check to see if the room already exists
     if (!gameData[user.room]) {
       // If it doesn't exist on the server, then create a room object for it
