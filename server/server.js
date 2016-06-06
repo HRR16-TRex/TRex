@@ -137,19 +137,17 @@ var sendDataToClients = function(users, eventName, data, msg) {
 };
 
 
-
-
 // The racer moves are an array full of incremental moves that should end 
 // with the racer near the end of the alloted space at the end of the alloted time
 var generateRacerMoves = function(time, racers) {
   var moves = {};
   time = time * 1000;
 
-  for (var i = 0; i < racers.length; i++) {
+  for (var i = 0; i < (racers.length); i++) {
     var racerTime = 0, move;
     moves[racers[i]] = [];
 
-    for (var j = 0; j < 100; j++) {
+    for (var j = 0; j < 99; j++) {
       moves[racers[i]].push({time:time / 100, distance: 1});
     }
   }

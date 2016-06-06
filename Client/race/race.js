@@ -169,6 +169,7 @@ angular.module("app.race", ['ngRoute'])
         };
 
         winner.css('border', '5px red solid');
+        stopMovement();
         console.log('Countdown complete');
       };
       
@@ -194,6 +195,10 @@ angular.module("app.race", ['ngRoute'])
         });
       };
       
+      var stopMovement = function() {
+        $('.trex').clearQueue().stop();
+      };
+
       // To send a message from the user in the proper format
       $scope.sendChatMessage= function(message) {
         // Define the structure of the userMessage before sending it
