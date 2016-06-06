@@ -99,7 +99,14 @@ angular.module("app.race", ['ngRoute'])
           console.log(logMsg(result, msg));
         });
       };
-      
+
+      //update records, stop signal must come from Admin
+      var updateUserRecord = function (updateRoom){
+        socket.emit('updateRecord', updateRoom, function(result, msg){
+          console.log(logMsg(result, msg));
+        });
+      };
+
       // Server user object is not the same as connectedUsers, so this gets updated slightly differently
       var addOrUpdateUsers = function(users) {
         var connectedUsers = {};
@@ -157,6 +164,10 @@ angular.module("app.race", ['ngRoute'])
           }
         });
 
+        if($scope.isUserAdmin === true) {
+          updateUserRecord($scope.room);
+        };
+
         winner.css('border', '5px red solid');
         console.log('Countdown complete');
       };
@@ -213,7 +224,7 @@ angular.module("app.race", ['ngRoute'])
   .factory('socket', function ($rootScope) {
     // For development testing need to set it to use 'http://' since localhost uses http
     // For production, can use either http or https but the web address will have to match it
-    var socket = io.connect('https://' + window.location.hostname + ":" + location.port);
+    var socket = io.connect('http://' + window.location.hostname + ":" + location.port);
     
     // Error handling can be applied passing in a callback when executing socket methods on or emit
     var on = function (eventName, callback) {
@@ -240,4 +251,4 @@ angular.module("app.race", ['ngRoute'])
       on: on,
       emit: emit
     };
-  });     
+  });
