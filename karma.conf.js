@@ -25,7 +25,8 @@ module.exports = function (config) {
       'Client/lib/humanize-duration/humanize-duration.js',
       'Client/lib/angular-timer/dist/angular-timer.min.js',
       
-      // socket io?
+      // socket io
+      'https://cdn.socket.io/socket.io-1.4.5.js',
       
       // our app code
       'Client/app/**/*.js',

@@ -19,7 +19,7 @@ describe('AppController', function () {
     var $controller = $injector.get('$controller');
 
     createController = function () {
-      return $controller('AppController', {
+      return $controller('raceController', {
         $scope: $scope,
         // Links: Links, for factories
         $location: $location
@@ -29,7 +29,7 @@ describe('AppController', function () {
     createController();
   }));
 
-  it('should have a starTimer function on the $scope', function () {
+  it('should have a startTimer function on the $scope', function () {
     expect($scope.startTimer).to.be.a('function');
   });
   
