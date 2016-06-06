@@ -147,7 +147,7 @@ var generateRacerMoves = function(time, racers) {
     var racerTime = 0, move;
     moves[racers[i]] = [];
 
-    for (var j = 0; j < 99; j++) {
+    for (var j = 0; j < 90; j++) {
       moves[racers[i]].push({time:time / 100, distance: 1});
     }
   }

@@ -135,7 +135,7 @@ body {
 }
 
 .chatWindow {
-  width: 600px;
+  width: 400px;
   float: right;
 }
 
@@ -159,7 +159,7 @@ body {
 
 .chatSubmit form input {
   margin-left: 5px;
-  width: 375px;
+  width: 175px;
   margin-top: 15px;
 }
 
