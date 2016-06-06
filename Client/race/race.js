@@ -229,7 +229,7 @@ angular.module("app.race", ['ngRoute'])
   .factory('socket', function ($rootScope) {
     // For development testing need to set it to use 'http://' since localhost uses http
     // For production, can use either http or https but the web address will have to match it
-    var socket = io.connect('http://' + window.location.hostname + ":" + location.port);
+    var socket = io.connect('https://' + window.location.hostname + ":" + location.port);
     
     // Error handling can be applied passing in a callback when executing socket methods on or emit
     var on = function (eventName, callback) {
