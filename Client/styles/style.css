@@ -120,16 +120,6 @@ body {
     border-bottom: #000 1px solid;
 }
 
-.trex {
-  position: relative;
-  left: 10px;
-  top: 58%;
-  width: 122px;
-  height: 92px;
-  border: transparent 1px solid;
-  transform: scaleX(-1);
-}
-
 .header {
   text-align: center;
   width: 100%;
@@ -155,6 +145,7 @@ body {
   border-radius: 10px;
   height: 200px;
   border: 2px #4f6c84 dashed;
+  padding-left: 10px;
 }
 
 .chatSubmit {
@@ -201,18 +192,28 @@ body {
   float: left;
 }
 
+.trex {
+  position: absolute;
+  left: 10px;
+  width: 122px;
+  height: 92px;
+  border: transparent 1px solid; 
+  transform: scaleX(-1);
+}
+
 .red {
   background-image: url(../assets/trex-running-r.gif);
+  top: 440px;
 }
 
 .blue {
   background-image: url(../assets/trex-running-b.gif);
-  top: 45%;
+  top: 460px;
 }
 
 .green {
   background-image: url(../assets/trex-running-g.gif);
-  top: 33%;
+  top: 480px;
 }
 
 @keyframes backgroundScroll {
