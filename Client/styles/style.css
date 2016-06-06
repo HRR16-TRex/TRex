@@ -197,7 +197,7 @@ body {
   left: 10px;
   width: 122px;
   height: 92px;
-  border: transparent 1px solid;
+  border: transparent 1px solid; 
   transform: scaleX(-1);
 }
 
