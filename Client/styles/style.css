@@ -21,7 +21,7 @@ body {
 #signInView {
   background-color: #899fc8;
   margin: 0 auto;
-  margin-top: 150px;
+  margin-top: 40px;
   border-radius: 20px;
   width: 500px;
   height: 600px;
@@ -208,12 +208,12 @@ body {
 
 .blue {
   background-image: url(../assets/trex-running-b.gif);
-  top: 460px;
+  top: 386px;
 }
 
 .green {
   background-image: url(../assets/trex-running-g.gif);
-  top: 480px;
+  top: 368px;
 }
 
 @keyframes backgroundScroll {
