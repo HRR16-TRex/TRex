@@ -155,12 +155,17 @@ angular.module("app.race", ['ngRoute'])
       // ********** Timer Functionality **********
       // Each client will run this code when the countdown has reached 0
       $scope.countdownComplete = function () {
-        var winner = null;
+        var winner = {};
+        winner.$racer = null;
+        winner.color = null;
 
+        // Find the winner
         $('.trex').each(function() {
-          if (!winner || Number($(this).css('left').replace('px','')) > Number(winner.css('left').replace('px',''))) {
-            winner = $(this);
-            console.log(winner);
+          // End of race, set racers to idle gif
+          $(this).css('background', 'url(../assets/trex-idle-' + this.classList[1].substring(0, 1) + '.gif)');
+          if (!winner.$racer || Number($(this).css('left').replace('px','')) > Number(winner.$racer.css('left').replace('px',''))) {
+            winner.$racer = $(this);
+            winner.color = this.classList[1].substring(0, 1);
           }
         });
 
@@ -168,8 +173,10 @@ angular.module("app.race", ['ngRoute'])
           updateUserRecord($scope.room);
         };
 
-        winner.css('border', '5px red solid');
+        // Set the winning animation gif
+        winner.$racer.css('background', 'url(../assets/trex-winning-' + winner.color + '.gif)');
         stopMovement();
+
         console.log('Countdown complete');
       };
       
@@ -188,6 +195,8 @@ angular.module("app.race", ['ngRoute'])
       // ********** Animation/Front-end Interaction **********
       // Handles animating movement for each racer triggered by admin clicking start timer
       var animateMovement = function(racer, moves) {
+        // $('.' + racer).css('background', '../assets/trex-running-' + this.classList[1].substring(0, 1) + '.gif');
+        $('.' + racer).css('background', 'url(../assets/trex-running-' + racer.substring(0, 1) + '.gif)');
         moves.forEach(function(move) {
           $('.' + racer).animate({'left':'+=' + move.distance + '%'}, {
             duration: move.time
