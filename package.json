@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "angularjs-scroll-glue": "^2.0.7",
     "body-parser": "^1.15.1",
     "bower": "^1.7.9",
     "express": "^4.13.4",

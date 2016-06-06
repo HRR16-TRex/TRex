@@ -1,4 +1,4 @@
-angular.module("app.race", ['ngRoute'])
+angular.module("app.race", ['ngRoute', 'luegg.directives'])
   
   .controller("raceController", function($scope, $timeout, socket, $routeParams){
       // ********** Initialize Parameters **********
@@ -192,6 +192,7 @@ angular.module("app.race", ['ngRoute'])
           message: message
         };
         sendMessage(userMessage);
+        $scope.chatMessage = null;
       };
       
       // 'Choose' button trigger, sets the chosen racer and lets the server know what racer this user selected.
