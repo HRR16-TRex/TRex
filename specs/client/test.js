@@ -33,4 +33,7 @@ describe('AppController', function () {
     expect($scope.startTimer).to.be.a('function');
   });
   
+  it('should have a stopTimer function on the $scope', function () {
+    expect($scope.stopTimer).to.be.a('function');
+  });
 });
