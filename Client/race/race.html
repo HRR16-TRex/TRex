@@ -1,28 +1,24 @@
-<div class="timerView">
-  <input type="text" placeholder="Minutes" name="timerCountMinutes" ng-model="timerCountMinutes" ng-show="isUserAdmin">
-  <input type="text" placeholder="Seconds" name="timerCountSeconds" ng-model="timerCountSeconds" ng-show="isUserAdmin">
-  <button ng-click="setTimer(timerCountSeconds,timerCountMinutes)" ng-show="isUserAdmin">Set Time</button>
-  <h2>
-    <timer interval="1000" countdown="countdownTime" autostart="false" finish-callback="countdownComplete()">{{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}</timer>
-  </h2>
-  <button ng-click="startTimer()" ng-show="isUserAdmin">Start Timer</button>
-  <button ng-click="stopTimer()" ng-disabled="!timerRunning" ng-show="isUserAdmin">Stop Timer</button>
-</div>
+<div class="header">
+  <div class="timerView">
+    <input type="text" placeholder="Minutes" name="timerCountMinutes" ng-model="timerCountMinutes" ng-show="isUserAdmin">
+    <input type="text" placeholder="Seconds" name="timerCountSeconds" ng-model="timerCountSeconds" ng-show="isUserAdmin">
+    <button class="race-submit" ng-click="setTimer(timerCountSeconds,timerCountMinutes)" ng-show="isUserAdmin">Set Time</button>
+    <br >
+    <button class="race-submit" ng-click="startTimer()" ng-show="isUserAdmin">Start Timer</button>
+    <button class="race-submit" ng-click="stopTimer()" ng-disabled="!timerRunning" ng-show="isUserAdmin">Stop Timer</button>
+    <h2>
+      <timer interval="1000" countdown="countdownTime" autostart="false" finish-callback="countdownComplete()">{{minutes}} minute{{minutesS}}, {{seconds}} second{{secondsS}}</timer>
+    </h2>
+    <h4 ng-show="racerChosen">Racer chosen: {{selectedRacer}}</h4>
+  </div>
 
-<div class="racerColumn">
-  <form ng-submit="chooseRacer(selectedRacer)" ng-show="!racerChosen">
-    <select ng-model="selectedRacer" ng-options="racers for racers in racerChoices">
-    </select>
-    <button>Choose</button>
-  </form>
-  <h4 ng-show="racerChosen">Racer chosen: {{selectedRacer}}</h4>
-  <div class="userList">
-    <h4>Green</h4>
-    <p ng-repeat="user in connectedUsers | filter: 'green'">{{user.username}} (W:{{user.wins}}/L:{{user.loss}})</p>
-    <h4>Blue</h4>
-    <p ng-repeat="user in connectedUsers | filter: 'blue'">{{user.username}} (W:{{user.wins}}/L:{{user.loss}})</p>
-    <h4>Red</h4>
-    <p ng-repeat="user in connectedUsers | filter: 'red'">{{user.username}} (W:{{user.wins}}/L:{{user.loss}})</p>
+  <div class="bet-selected">
+    <form ng-submit="chooseRacer(selectedRacer)" ng-show="!racerChosen">
+      <span>Select racer:</span>
+      <select ng-model="selectedRacer" ng-options="racers for racers in racerChoices">
+      </select>
+      <button class="race-submit">Place bet</button>
+    </form>
   </div>
 </div>
 
@@ -32,13 +28,40 @@
   <div class="trex green"></div>
 </div>
 
-<div class="chatWindow">
-  <div class="chatRoom">
-    <p ng-repeat="message in messages">{{message.user}}:  {{message.message}}</p>
+<div class="footer">
+  <div class="racerColumn">
+    <div class="userList">
+      <div class="bet-red">
+        <p>Red</p>
+        <div class="bets">
+          <p ng-repeat="user in connectedUsers | filter: 'red'">{{user.username}} (W:{{user.wins}}/L:{{user.loss}})</p>
+        </div>
+      </div>
+      <div class="bet-blue">
+        <p>Blue</p>
+        <div class="bets">
+          <p ng-repeat="user in connectedUsers | filter: 'blue'">{{user.username}} (W:{{user.wins}}/L:{{user.loss}})</p>
+        </div>
+      </div>
+      <div class="bet-green">
+        <p>Green</p>
+        <div class="bets">
+          <p ng-repeat="user in connectedUsers | filter: 'green'">{{user.username}} (W:{{user.wins}}/L:{{user.loss}})</p>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="chatSubmit">
-    <form ng-submit="sendChatMessage(chatMessage)">
-      <input type="text" placeholder="Send your message" name="chatMessage" ng-model="chatMessage">
-    </form>
+
+  <div class="chatWindow">
+    <p>Chat</p>
+    <div class="chatRoom">
+      <p ng-repeat="message in messages">{{message.user}}:  {{message.message}}</p>
+    </div>
+    <div class="chatSubmit">
+      <p>{{username}} :</p>
+      <form ng-submit="sendChatMessage(chatMessage)">
+        <input type="text" placeholder="Send your message" name="chatMessage" ng-model="chatMessage">
+      </form>
+    </div>
   </div>
 </div>
