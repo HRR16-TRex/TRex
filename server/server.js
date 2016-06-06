@@ -62,16 +62,11 @@ io.on('connection', function(client){
 
   // Add bet information from the client
   client.on('setUserBet', function(betInfo, callback) {
-    var userClientId = gameData[betInfo.room].users[betInfo.user].clientId;
+    // var userClientId = gameData[betInfo.room].users[betInfo.user].clientId;
     gameData[betInfo.room].users[betInfo.user].racerChoice = betInfo.racerChoice;
-    
     sendDataToClients(gameData[betInfo.room].users, 'retrieveUserData', gameData[betInfo.room], 'A client has placed a bet.');
-
     callback(true, 'Server has stored your bet.');
 
-    var isUserRight;
-    betInfo.racerChoice === gameData[betInfo.room].winner ? isUserRight = true : isUserRight = false;
-    userController.updateUserStats(betInfo.user, isUserRight);
   });
 
   // Update messages for the room
@@ -105,11 +100,20 @@ io.on('connection', function(client){
       sendDataToClients(gameData[race.room].users, 'startRace', true, 'The race for room ' + race.room + ' has begun!');
       callback(true, 'Server has triggered the race to start for room: ' + race.room);
     } else {
-      callback(false, 'Server failed to start the race for room: ' + race.room)
+      callback(false, 'Server failed to start the race for room: ' + race.room);
     }
   });
-});
 
+  //Updates win loss records for each user in race, updateRoom is a roomname string sent by admin client upon race end
+  client.on('updateRecord', function(updateRoom, callback) {
+    for (var user in gameData[updateRoom].users) {
+      var isUserRight;
+      gameData[updateRoom].users[user].racerChoice === gameData[updateRoom].winner ? isUserRight = true : isUserRight = false;
+      userController.updateUserStats(user, isUserRight);
+    }
+    callback(true, 'Server has updated records');
+  });
+});
 
 http.listen(port, function(){
   console.log('listening on port ' + port);
@@ -139,11 +143,11 @@ var generateRacerMoves = function(time, racers) {
   var moves = {};
   time = time * 1000;
 
-  for (var i = 0; i < racers.length; i++) {
+  for (var i = 0; i < (racers.length); i++) {
     var racerTime = 0, move;
     moves[racers[i]] = [];
 
-    for (var j = 0; j < 100; j++) {
+    for (var j = 0; j < 99; j++) {
       moves[racers[i]].push({time:time / 100, distance: 1});
     }
   }
