@@ -11,15 +11,20 @@
     <div ng-view></div>
     <script src="lib/jquery/dist/jquery.js"></script>
     <script src="lib/angular/angular.js"></script>
+    <!-- To switch between the 2 views with ng-view, angular-route.js is needed -->
     <script src="lib/angular-route/angular-route.js"></script>
+    <!-- these 4 files help with the timer set-up -->
     <script src="lib/moment/min/moment.min.js"></script>
     <script src="lib/moment/min/locales.min.js"></script>
     <script src="lib/humanize-duration/humanize-duration.js"></script>
     <script src="lib/angular-timer/dist/angular-timer.min.js"></script>
+    <!-- socket.io is used in place of traditional http protocol -->
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <!-- this file describes the overall app module and routing -->
     <script src="app/app.js"></script>
+    <!-- this describes the controller for signin.html -->
     <script src="auth/auth.js"></script>
+    <!-- this describes the controller, logic and factory for race.html -->
     <script src="race/race.js"></script>
-
   </body>
 </html>
