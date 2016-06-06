@@ -202,17 +202,17 @@ body {
 }
 
 .red {
-  background-image: url(../assets/trex-running-r.gif);
+  background-image: url(../assets/trex-idle-r.gif);
   top: 440px;
 }
 
 .blue {
-  background-image: url(../assets/trex-running-b.gif);
+  background-image: url(../assets/trex-idle-b.gif);
   top: 460px;
 }
 
 .green {
-  background-image: url(../assets/trex-running-g.gif);
+  background-image: url(../assets/trex-idle-g.gif);
   top: 480px;
 }
 
