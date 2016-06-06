@@ -99,7 +99,14 @@ angular.module("app.race", ['ngRoute'])
           console.log(logMsg(result, msg));
         });
       };
-      
+
+      //update records, stop signal must come from Admin
+      var updateUserRecord = function (updateRoom){
+        socket.emit('updateRecord', updateRoom, function(result, msg){
+          console.log(logMsg(result, msg));
+        });
+      };
+
       // Server user object is not the same as connectedUsers, so this gets updated slightly differently
       var addOrUpdateUsers = function(users) {
         var connectedUsers = {};
@@ -157,7 +164,12 @@ angular.module("app.race", ['ngRoute'])
           }
         });
 
+        if($scope.isUserAdmin === true) {
+          updateUserRecord($scope.room);
+        };
+
         winner.css('border', '5px red solid');
+        stopMovement();
         console.log('Countdown complete');
       };
       
@@ -183,6 +195,10 @@ angular.module("app.race", ['ngRoute'])
         });
       };
       
+      var stopMovement = function() {
+        $('.trex').clearQueue().stop();
+      };
+
       // To send a message from the user in the proper format
       $scope.sendChatMessage= function(message) {
         // Define the structure of the userMessage before sending it
@@ -240,4 +256,4 @@ angular.module("app.race", ['ngRoute'])
       on: on,
       emit: emit
     };
-  });     
+  });
