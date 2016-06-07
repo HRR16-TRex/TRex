@@ -33,7 +33,7 @@ Once the project moves into development, the press release can be used as a touc
   > "I could watch this for the rest of my life."
 
 ## How to Get Started ##
-  > Just go to our website [here](www.trex-timer.herokuapp.com) to begin. If you want to create a race, then input the race name and your username. You'll be able to set the countdown timer and start it. Invite whoever you want to your race and see the bets pour in. If you join a race as a user, place your bet and enjoy the excitement of the race!
+  > Just go to our website [here](www.trex-timer.herokuapp.com) to begin. For admin, create a race and set the timer as well as manage the start. For user, join an existing race and place your bet.
 
 ## Customer Quote ##
   > "I was able to get all my students to work quietly as The TRex Race Timer made our daily writing assignment exciting."
