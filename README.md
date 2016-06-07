@@ -20,7 +20,7 @@
 
 ## Usage
 
-> Some usage instructions
+> Just go to our website [here](www.trex-timer.herokuapp.com) to begin. If you want to create a race, then input the race name and your username. You'll be able to set the countdown timer and start it. Invite whoever you want to your race and see the bets pour in. If you join a race as a user, place your bet and enjoy the excitement of the race!
 
 ## Requirements
 
@@ -28,6 +28,9 @@
 - Express
 - Angular
 - Node
+- Socket.io
+- Bower
+- Gulp
 
 ## Development
 

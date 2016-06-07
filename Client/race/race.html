@@ -52,9 +52,9 @@
     </div>
   </div>
 
-  <div class="chatWindow" scroll-glue>
+  <div class="chatWindow">
     <p>Chat</p>
-    <div class="chatRoom">
+    <div class="chatRoom" scroll-glue>
       <p ng-repeat="message in messages">{{message.user}}:  {{message.message}}</p>
     </div>
     <div class="chatSubmit">
